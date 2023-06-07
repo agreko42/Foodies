@@ -13,9 +13,6 @@ public class FoodListEndpointService {
     private final FoodListStorageService foodListStorageService;
     private final MealChooser mealChooser;
 
-    //TODO: export all the logic to a service and pass your objects to it CHECKED!!
-    //This ensures that you do not need to touch the controller if a change is needed
-
     public FoodListEndpointService(FoodListStorageService foodListStorageService, MealChooser mealChooser) {
         this.foodListStorageService = foodListStorageService;
         this.mealChooser = mealChooser;
@@ -34,12 +31,10 @@ public class FoodListEndpointService {
     }
 
     public List<Dish> getDinnerDishes(){
-
         return foodListStorageService.getDishesByType(MenuType.DINNER);
     }
 
     public List<Dish> getLunchDishes(){
-
         return foodListStorageService.getDishesByType(MenuType.LUNCH);
     }
 

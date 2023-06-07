@@ -20,7 +20,6 @@ public class BeansConfiguration {
 
     @Bean
     FoodListStorage FoodListLoader() {
-
         Menu breakfast = new Menu(new ArrayList<>(
                 List.of(new Dish("Cereal", "https://images.unsplash.com/photo-1504308805006-0f7a5f1f0f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3174&q=80"),
                         new Dish("Bacon&Eggs", "https://images.unsplash.com/photo-1608475861994-cf7af0f0c1be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"),

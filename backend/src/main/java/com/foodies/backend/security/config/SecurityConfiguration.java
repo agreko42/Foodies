@@ -19,12 +19,11 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**", "/foodlist/**")  //TODO: does it work with one star?
+                .requestMatchers("/api/v1/auth/**", "/foodlist/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

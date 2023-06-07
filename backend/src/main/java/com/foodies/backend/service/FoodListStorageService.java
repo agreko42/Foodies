@@ -15,7 +15,6 @@ public class FoodListStorageService {
         this.foodListStorage = foodListStorage;
     }
 
-    //TODO: export next two functions to a service CHECKED! (War in FoodlistStorage drinnen)
     public List<List<Dish>> getAllDishes() {
         return new ArrayList(foodListStorage.menues().stream()
                 .map(Menu::dishes)
