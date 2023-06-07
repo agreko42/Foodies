@@ -18,6 +18,5 @@ public class Service {
 
     private int getRandomNumber(int minRange, int maxRange) {
         return randomNumberGenerator.getRandomNumber(minRange, maxRange);
-        //return random.nextInt(maxRange - minRange) + minRange;
     }
 }
