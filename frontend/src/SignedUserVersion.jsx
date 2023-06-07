@@ -1,4 +1,7 @@
-import React, {Component, useState} from 'react';
+import {Component, useState} from 'react';
+import Navbar from './SignedUserVersion/layout/Navbar';
+import ButtonSection from './SignedUserVersion/components/ButtonSection';
+import Footer from './SignedUserVersion/layout/Footer';
 
 function SignedUserVersion() {
     const [activeComponent, setActiveComponent] = useState("Landing");
@@ -7,9 +10,11 @@ function SignedUserVersion() {
     };
 
     return(
-        <div>
-            Insert Version for signed-up Users
-        </div>
+        <>
+            <Navbar />
+            <ButtonSection />
+            <Footer />
+        </>
     )
 
 
