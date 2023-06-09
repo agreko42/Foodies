@@ -2,9 +2,12 @@ package com.foodies.backend.recipeLogic;
 
 
 
+import com.foodies.backend.recipeLogic.dbConnection.Recipe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:5173"})
@@ -15,19 +18,18 @@ public class RecipeEndpoint {
     private final RecipeEndpointService recipeService;
 
     @GetMapping("/{type}")
-    public String getRecipesByFlavourType(@PathVariable String type){
-        try{
-            return recipeService.getRecipesByFlavourType(type).toString();
-        }
-        catch(Exception e) {
-            return e.getMessage();
-        }
+    public List<Recipe> getRecipesByFlavourType(@PathVariable String type){
+            return recipeService.getRecipesByFlavourType(type);
     }
 
     @PostMapping("/post")
-    public ResponseEntity<Long> postRecipe(@RequestBody postRecipeRequest recipeRequest){
-        long savedRecipeId = recipeService.postRecipe(recipeRequest);
-        return  ResponseEntity.ok(savedRecipeId);
+    public Long postRecipe(@RequestBody postRecipeRequest recipeRequest){
+        try{
+            return recipeService.postRecipe(recipeRequest);
+        }
+        catch(Exception e) {
+            return (long)42;
+        }
     }
 }
 

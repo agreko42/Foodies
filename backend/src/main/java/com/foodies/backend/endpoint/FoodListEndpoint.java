@@ -2,6 +2,7 @@ package com.foodies.backend.endpoint;
 
 import com.foodies.backend.data.Dish;
 import com.foodies.backend.service.FoodListEndpointService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,8 @@ public class FoodListEndpoint {
     public String getRandomDishByUserChoice(@PathVariable String type){
         return foodListEndpointService.getRandomDishByUserChoice(type);
     }
+
+
 
     @GetMapping("/breakfast")
     public List<Dish> getBreakfastDishes(){

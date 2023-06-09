@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### added because of DB config, hope syntax is correct
+**/src/main/resources/application.yml
+
 ### STS ###
 .apt_generated
 .classpath

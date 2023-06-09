@@ -49,12 +49,16 @@ public class Recipe {
    // public List<Ingredient> getIngredients() {
   //      return ingredients;
   //  }
-
+//TODO: same structure as for recipes (interface, entity etc.) but for ingredients, then integrate both into endpoints
     public List<String> getSteps() {
         return steps;
     }
 
     public List<String> getComments() {
         return comments;
+    }
+
+    public FlavourType getFlavourType() {
+        return flavourType;
     }
 }

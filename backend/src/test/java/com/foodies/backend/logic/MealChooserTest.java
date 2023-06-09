@@ -1,6 +1,6 @@
 package com.foodies.backend.logic;
 
-import com.foodRoulette.service.FoodListStorage;
+import com.foodies.backend.service.FoodListStorage;
 import org.mockito.Mockito;
 
 import java.util.Random;

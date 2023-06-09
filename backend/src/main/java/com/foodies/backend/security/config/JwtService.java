@@ -52,7 +52,7 @@ public class JwtService {
     }
 
     public boolean isTokeExpired(String jwt) {
-        return extractExpiration(jwt).before(new Date());
+        return extractExpiration(jwt).before(new Date(System.currentTimeMillis()));
     }
 
     private Date extractExpiration(String jwt) {
