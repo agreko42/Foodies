@@ -1,35 +1,34 @@
 //import './App.css'
 import Navbar from "./FreeUserVersion/layout/Navbar.jsx";
 import Footer from "./FreeUserVersion/layout/Footer.jsx";
-import ButtonSection from "./FreeUserVersion/components/ButtonSection.jsx";
 import ContentSection from "./FreeUserVersion/components/ContentSection.jsx";
 import { useState } from "react";
-import WelcomeSection from "./FreeUserVersion/components/WelcomeSection.jsx";
 import MenuOptions from "./FreeUserVersion/components/MenuOptions.jsx";
+import { Box } from "@mui/material";
 
 
 function FreeUserVersion() {
 
-    const [activeComponent, setActiveComponent] = useState('Roulette');
-    const [filterBtnForFood, setFilterBtnForFood] = useState("breakfast");
-    const [randomFood, setRandomFood] = useState(""); // später wird das ein Object
+    const [filterBtnForFood, setFilterBtnForFood] = useState("sweet");
 
   return (
     <>
         <Navbar />
-        <WelcomeSection />
-        <ButtonSection
-            setActiceComponent={setActiveComponent}
-        />
-        <MenuOptions
-            setRandomFood={setRandomFood}
-            setFilterBtnChange={setFilterBtnForFood}/>
-        <ContentSection
-            randomFood={randomFood}
-            setRandomFood={setRandomFood}
-            activeComponent={activeComponent}
-            filterBtn={filterBtnForFood}
-        />
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-around", alignItems: "center" }}>
+            <Box>
+                <MenuOptions
+                    setFilterBtnChange={setFilterBtnForFood}
+                    />
+            </Box>
+            <Box>
+                <ContentSection
+                    filterBtn={filterBtnForFood}
+                />
+            </Box>            
+            <Box>
+                for test purposes
+            </Box>
+        </Box>
         <Footer />
     </>
   )

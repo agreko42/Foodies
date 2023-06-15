@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import Roulette from "./Roulette.jsx";
-import Spinner from "./Spinner.jsx";
-import {Box, Button} from "@mui/material";
+import {useEffect, useState} from 'react';
+import {Box, Button, Stack} from "@mui/material";
 import WheelContainer from "./Roulette/WheelContainer.jsx";
 
 const fetchAllGenericFood = async (chosenFilterBtn) => {
@@ -11,14 +9,40 @@ const fetchAllGenericFood = async (chosenFilterBtn) => {
 }
 
 const ContentSection = (props) => {
+
     const [food, setFood] = useState([]);
+    
+    let data = [
+        {
+          option: "Go Hungry",
+          style: { backgroundColor: "green", textColor: "white" },
+        },
+      ];
+      food.forEach((food) => {
+        data.push({
+          option: `${food.name}`,
+          style: { backgroundColor: "", textColor: "black" },
+          image: { uri: `${food.url}`, sizeMultiplier: "0.8" },
+        });
+      });
 
+      const [winningNumber, setWinningNumber] = useState(
+        getRandomNumber(data.length)
+      );
+      const [mustSpin, setMustSpin] = useState(false);
+      const [currentResult, setCurrentResult] = useState("");
+      
 
-    const fetchRandomFoodByUserChoice = async (chosenFilterBtn) => {
-        const foodData = await fetch(`http://localhost:8080/foodlist/chooseFood/${chosenFilterBtn}`);
-        const foodResult = await foodData.text();
-        return props.setRandomFood(foodResult);
-    }
+    function handleSpinIt() {
+        let number = getRandomNumber(data.length);
+        setWinningNumber(number);
+        setCurrentResult("");
+        setMustSpin(true);
+      }
+
+      function getRandomNumber(limit) {
+        return Math.floor(Math.random() * limit);
+      }
 
     useEffect(() => {
         fetchAllGenericFood(props.filterBtn)
@@ -26,25 +50,24 @@ const ContentSection = (props) => {
     }, [props.filterBtn]);
 
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            {props.randomFood === "" ?
-                <div>
-                    {props.activeComponent === 'Roulette' &&
-                        <WheelContainer
-                            food = {food}
-                        />
-                    }
-                    {props.activeComponent === 'Spinner' &&
-                        <Spinner
-                            food = {food}
-                        />
-                    }
-                </div>
-                :
-                <div >{props.randomFood}</div>
-            }
-        </Box>
-
+        <Stack spacing={2} direction="column" alignItems='center'>
+            <Box>
+                <WheelContainer
+                    food = {food}
+                    mustSpin = {mustSpin}
+                    winningNumber = {winningNumber}
+                    data = {data}
+                    setMustSpin = {setMustSpin}
+                    setCurrentResult = {setCurrentResult}
+                    currentResult = {currentResult}
+                />
+            </Box>   
+            <Box>
+                <Button onClick={() => handleSpinIt()}>
+                    Spin It!
+                </Button>
+            </Box>               
+        </Stack>
     );
 };
 

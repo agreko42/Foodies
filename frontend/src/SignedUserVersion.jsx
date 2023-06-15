@@ -1,9 +1,10 @@
-import {Component, useState} from 'react';
+import {Component, useEffect, useState} from 'react';
 import Navbar from './SignedUserVersion/layout/Navbar';
 import ButtonSection from './SignedUserVersion/components/ButtonSection';
 import Footer from './SignedUserVersion/layout/Footer';
+import { useNavigate } from 'react-router-dom';
 
-function SignedUserVersion() {
+function SignedUserVersion(props) {
     const [activeComponent, setActiveComponent] = useState("Landing");
     const handleActiveComponentChange = (componentName) => {
         setActiveComponent(componentName)
@@ -11,7 +12,7 @@ function SignedUserVersion() {
 
     return(
         <>
-            <Navbar />
+            <Navbar setUser={props.setUser} />
             <ButtonSection />
             <Footer />
         </>

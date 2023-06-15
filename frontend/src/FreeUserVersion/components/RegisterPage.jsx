@@ -4,7 +4,7 @@ import {Box, Button, Card, CardContent, Grid, IconButton, InputAdornment, TextFi
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import SignedUserVersion from "../../SignedUserVersion.jsx";
 
-const RegisterPage = () => {
+const RegisterPage = ({setUser}) => {
 
     const [username, setUsername] = useState("");
     const [usernameError, setUsernameError] = useState(false);
@@ -60,6 +60,8 @@ const RegisterPage = () => {
                 console.log("Token saved in localStorage");
             })
             .catch((err) => console.log(`Hey, there is an ${err}`));
+            setUser(true)
+            navigate("/logged-in")
     };
 
     return (

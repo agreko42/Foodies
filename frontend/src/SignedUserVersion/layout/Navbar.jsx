@@ -13,7 +13,6 @@ import {
   MenuItem
 } from "@mui/material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 
@@ -64,7 +63,7 @@ const CustomAppBar = styled(AppBar)(({ theme }) => ({
   }));
 
 
-const Navbar = () => {
+const Navbar = (props) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -89,6 +88,11 @@ const Navbar = () => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleSignout = () => {
+    props.setUser(false);
+    localStorage.clear();
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -108,6 +112,7 @@ const Navbar = () => {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleSignout}>Sign Out</MenuItem>
     </Menu>
   );
 

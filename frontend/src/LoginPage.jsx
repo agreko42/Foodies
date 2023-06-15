@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
-const LoginPage = () => {
+const LoginPage = ({setUser}) => {
     const [username, setUsername] = useState("");
     const [usernameError, setUsernameError] = useState(false);
     const [userPassword, setUserPassword] = useState("");
@@ -53,6 +53,8 @@ const LoginPage = () => {
                 console.log("Token saved in localStorage");
             })
             .catch((err) => console.log(`Hey, there is an ${err}`));
+            setUser(true)
+            navigate("/logged-in")
     };
 
     return (

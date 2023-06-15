@@ -1,39 +1,26 @@
-import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 
 const MenuOptions = (props) => {
 
-    const handleBtnBreakfast = () => {
-        props.setRandomFood("");
-        console.log("HIIIII Breakfast!!!")
-        props.setFilterBtnChange("breakfast")
+    const handleBtnSweet = () => {
+        props.setFilterBtnChange("sweet")
 
     }
-    const handleBtnLunch = () => {
-        props.setRandomFood("");
-        console.log("HIIIII Lunch!!!!")
-        props.setFilterBtnChange("lunch")
-    }
-    const handleBtnDinner = () => {
-        props.setRandomFood("");
-        console.log("HIIIII Dinner")
-        props.setFilterBtnChange("dinner")
+    const handleBtnSevery = () => {
+        props.setFilterBtnChange("severy")
     }
 
     return (
         <Box>
             <Typography variant="h5" gutterBottom>
-                Choose your MealType
+                Choose One
             </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                <Button onClick={() => handleBtnBreakfast()} variant="outlined">
-                    Breakfast
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Button onClick={() => handleBtnSweet()} variant="outlined">
+                    Sweet
                 </Button>
-                <Button onClick={() => handleBtnLunch()} variant="outlined">
-                    Lunch
-                </Button>
-                <Button onClick={() => handleBtnDinner()} variant="outlined">
-                    Dinner
+                <Button onClick={() => handleBtnSevery()} variant="outlined">
+                    Severy
                 </Button>
             </Box>
         </Box>

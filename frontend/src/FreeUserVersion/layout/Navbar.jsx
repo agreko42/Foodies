@@ -1,5 +1,5 @@
 import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -47,7 +47,7 @@ const Navbar = () => {
                     <MenuItem onClick={handleClose}>Dinner</MenuItem>
                 </Menu>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
-                    FoodRoulette
+                    Foodies
                 </Typography>
                 <Button onClick={handleRegisterClick} color="inherit">Register</Button>
                 <Button onClick={handleLoginClick} color="inherit">Login</Button>
