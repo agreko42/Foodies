@@ -41,20 +41,22 @@ const LoginPage = ({setUser}) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userInput),
         })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error("Authentication failed");
-                }
-            })
-            .then((data) => {
-                localStorage.setItem('token', data.token); //oder sessionStorage.setItem.....
-                console.log("Token saved in localStorage");
-            })
-            .catch((err) => console.log(`Hey, there is an ${err}`));
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("Authentication failed");
+            }
+        })
+        .then((data) => {
+            console.log("DATA: ",  data)
+            localStorage.setItem('token', data.token); //oder sessionStorage.setItem.....
+            console.log("Token saved in localStorage");
             setUser(true)
             navigate("/logged-in")
+        })
+        .catch((err) => console.log(`Hey, there is an ${err}`));
+            
     };
 
     return (
