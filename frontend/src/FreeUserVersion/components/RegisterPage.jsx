@@ -2,7 +2,6 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Box, Button, Card, CardContent, Grid, IconButton, InputAdornment, TextField} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import SignedUserVersion from "../../SignedUserVersion/SignedUserVersion.jsx";
 
 const RegisterPage = ({setUser}) => {
 

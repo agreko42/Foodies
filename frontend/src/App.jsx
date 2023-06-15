@@ -1,8 +1,8 @@
-import FreeUserVersion from './FreeUserVersion/FreeUserVersion.jsx';
+import FreeUserVersion from './FreeUserVersion/FreeUserVersion.jsx'
 import SignedUserVersion from './SignedUserVersion/SignedUserVersion.jsx';
 import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LoginPage from "./LoginPage.jsx";
+import LoginPage from "./FreeUserVersion/components/LoginPage.jsx";
 import RegisterPage from "./FreeUserVersion/components/RegisterPage.jsx";
 import { useState } from 'react';
 import ProtectedRoute from './ProtectedRoute.jsx';
@@ -18,9 +18,9 @@ const App = () => {
                 <Route
                 path="/logged-in" 
                 element={
-                    <ProtectedRoute user = {user}>
-                        <SignedUserVersion setUser = {setUser} user = {user} />
-                    </ProtectedRoute>
+                <ProtectedRoute user = {user}>
+                    <SignedUserVersion setUser = {setUser} user = {user} />
+                </ProtectedRoute>
                 }
                 />
                 <Route path="/signup/login" element={<LoginPage setUser = {setUser} />} />
