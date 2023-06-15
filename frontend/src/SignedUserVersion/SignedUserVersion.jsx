@@ -1,7 +1,7 @@
 import {Component, useEffect, useState} from 'react';
-import Navbar from './SignedUserVersion/layout/Navbar';
-import ButtonSection from './SignedUserVersion/components/ButtonSection';
-import Footer from './SignedUserVersion/layout/Footer';
+import Navbar from './layout/Navbar';
+import ButtonSection from './components/ButtonSection';
+import Footer from './layout/Footer';
 import { useNavigate } from 'react-router-dom';
 
 function SignedUserVersion(props) {

@@ -1,5 +1,5 @@
-import FreeUserVersion from './FreeUserVersion.jsx';
-import SignedUserVersion from './SignedUserVersion.jsx';
+import FreeUserVersion from './FreeUserVersion/FreeUserVersion.jsx';
+import SignedUserVersion from './SignedUserVersion/SignedUserVersion.jsx';
 import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from "./LoginPage.jsx";

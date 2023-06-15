@@ -1,9 +1,9 @@
 //import './App.css'
-import Navbar from "./FreeUserVersion/layout/Navbar.jsx";
-import Footer from "./FreeUserVersion/layout/Footer.jsx";
-import ContentSection from "./FreeUserVersion/components/ContentSection.jsx";
+import Navbar from "./layout/Navbar.jsx";
+import Footer from "./layout/Footer.jsx";
+import ContentSection from "./components/ContentSection.jsx";
 import { useState } from "react";
-import MenuOptions from "./FreeUserVersion/components/MenuOptions.jsx";
+import MenuOptions from "./components/MenuOptions.jsx";
 import { Box } from "@mui/material";
 
 
