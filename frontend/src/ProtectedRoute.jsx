@@ -6,7 +6,7 @@ const ProtectedRoute = (props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!props.user && localStorage.getItem('token') === null) {
+        if(props.user == null && localStorage.getItem('token') === null) {
             return navigate("/");
         }
     })

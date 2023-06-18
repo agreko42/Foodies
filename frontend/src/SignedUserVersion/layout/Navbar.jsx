@@ -13,6 +13,7 @@ import {
   MenuItem
 } from "@mui/material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import MoreIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -71,6 +72,7 @@ const Navbar = (props) => {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
   const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event) => {
@@ -147,9 +149,7 @@ const Navbar = (props) => {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
-            <Typography>
-              {props.user == null ? "" : props.user.sub}
-            </Typography>
+            {/* {props.user == null ? "" : props.user.sub } */}
             <IconButton
               size="large"
               edge="end"
