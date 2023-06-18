@@ -2,8 +2,11 @@ import {Box, Button, Card, CardContent, Grid, IconButton, InputAdornment, TextFi
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import jwt_decode from 'jwt-decode';
 
-const LoginPage = () => {
+
+
+const LoginPage = (props) => {
     const [username, setUsername] = useState("");
     const [usernameError, setUsernameError] = useState(false);
     const [userPassword, setUserPassword] = useState("");
@@ -41,18 +44,26 @@ const LoginPage = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userInput),
         })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error("Authentication failed");
-                }
-            })
-            .then((data) => {
-                localStorage.setItem('token', data.token); //oder sessionStorage.setItem.....
-                console.log("Token saved in localStorage");
-            })
-            .catch((err) => console.log(`Hey, there is an ${err}`));
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("Authentication failed");
+            }
+        })
+        .then((data) => {
+            console.log("DATA: ",  data)
+            localStorage.setItem('token', data.token); //oder sessionStorage.setItem.....
+            console.log("Token saved in localStorage");
+            const jwt = data.token;
+            const decodedToken = jwt_decode(jwt);
+            console.log("DecodedToken: ", decodedToken);
+            props.setUser(decodedToken)
+            navigate("/logged-in")
+        })
+        
+        .catch((err) => console.log(`Hey, there is an ${err}`));
+            
     };
 
     return (

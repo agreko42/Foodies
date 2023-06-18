@@ -26,27 +26,20 @@ public class FoodListEndpointService {
         return mealChooser.getRandomDishByUserChoice(type);
     }
 
-    public List<Dish> getBreakfastDishes(){
-        return foodListStorageService.getDishesByType(MenuType.BREAKFAST);
+    public List<Dish> getSweetDishes(){
+        return foodListStorageService.getDishesByType(MenuType.SWEET);
     }
 
-    public List<Dish> getDinnerDishes(){
-        return foodListStorageService.getDishesByType(MenuType.DINNER);
+    public List<Dish> getSeveryDishes(){
+        return foodListStorageService.getDishesByType(MenuType.SEVERY);
     }
 
-    public List<Dish> getLunchDishes(){
-        return foodListStorageService.getDishesByType(MenuType.LUNCH);
+    public List<Dish> addSweetDishAndShowAllLists(@RequestBody Dish dish){
+        return foodListStorageService.addDish(dish, MenuType.SWEET);
     }
 
-    public List<Dish> addBreakfastDishAndShowAllLists(@RequestBody Dish dish){
-        return foodListStorageService.addDish(dish, MenuType.BREAKFAST);
+    public List<Dish> addSeveryAndShowDinnerList(@RequestBody Dish dish){
+        return foodListStorageService.addDish(dish, MenuType.SEVERY);
     }
 
-    public List<Dish> addDinnerAndShowDinnerList(@RequestBody Dish dish){
-        return foodListStorageService.addDish(dish, MenuType.DINNER);
-    }
-
-    public List<Dish> addLaunchAndShowLunchList(@RequestBody Dish dish){
-        return foodListStorageService.addDish(dish, MenuType.LUNCH);
-    }
 }

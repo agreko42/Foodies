@@ -13,9 +13,9 @@ import {
   MenuItem
 } from "@mui/material";
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -64,13 +64,14 @@ const CustomAppBar = styled(AppBar)(({ theme }) => ({
   }));
 
 
-const Navbar = () => {
+const Navbar = (props) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -88,6 +89,12 @@ const Navbar = () => {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const handleSignout = () => {
+    props.setUser(null);
+    localStorage.clear();
+    navigate("/")
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -108,6 +115,7 @@ const Navbar = () => {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleSignout}>Sign Out</MenuItem>
     </Menu>
   );
 
@@ -139,6 +147,9 @@ const Navbar = () => {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
+            <Typography>
+              {props.user == null ? "" : props.user.sub}
+            </Typography>
             <IconButton
               size="large"
               edge="end"

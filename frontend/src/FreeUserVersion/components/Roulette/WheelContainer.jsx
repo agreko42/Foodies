@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Wheel } from "react-custom-roulette";
 import { Box, Button } from "@mui/material";
 import ResultBox from "./ResultBox.jsx";
 
 const WheelContainer = (props) => {
+
+  const [food, setFood] = useState([]);
+
   let data = [
     {
       option: "Go Hungry",
       style: { backgroundColor: "green", textColor: "white" },
     },
   ];
-  props.food.forEach((food) => {
+  food.forEach((food) => {
     data.push({
       option: `${food.name}`,
       style: { backgroundColor: "", textColor: "black" },
@@ -24,24 +27,36 @@ const WheelContainer = (props) => {
   const [mustSpin, setMustSpin] = useState(false);
   const [currentResult, setCurrentResult] = useState("");
 
-  function handleSpinIt() {
+  const fetchAllGenericFood = async (chosenFilterBtn) => {
+    const foodData = await fetch(`http://localhost:8080/foodlist/${chosenFilterBtn}`)
+    const foodResult = await foodData.json();
+    return foodResult;
+}
+  
+
+function handleSpinIt() {
     let number = getRandomNumber(data.length);
     setWinningNumber(number);
     setCurrentResult("");
     setMustSpin(true);
   }
 
+  useEffect(() => {
+    fetchAllGenericFood(props.filterBtn)
+        .then((food) => setFood(food));
+}, [props.filterBtn]);
+  
+
+  
   return (
-    <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-    >
+    <Box>
       <Wheel
         mustStartSpinning={mustSpin}
         prizeNumber={winningNumber}
         data={data}
         onStopSpinning={() => {
           setMustSpin(false);
-          setCurrentResult(props.food[winningNumber - 1]);
+          setCurrentResult(food[winningNumber - 1]);
         }}
         backgroundColors={["#3e3e3e", "#df3428"]}
         innerRadius={40}
@@ -49,7 +64,9 @@ const WheelContainer = (props) => {
         textDistance={75}
         textColors={["#ffffff"]}
       />
-      <Button onClick={() => handleSpinIt()}>Spin It!</Button>
+      <Button onClick={() => handleSpinIt()}>
+                    Spin It!
+                </Button>
       {currentResult === "" ? (
         ""
       ) : winningNumber === 0 ? (
@@ -67,5 +84,7 @@ const WheelContainer = (props) => {
 function getRandomNumber(limit) {
   return Math.floor(Math.random() * limit);
 }
+
+
 
 export default WheelContainer;

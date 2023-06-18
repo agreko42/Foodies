@@ -2,9 +2,9 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Box, Button, Card, CardContent, Grid, IconButton, InputAdornment, TextField} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import SignedUserVersion from "../../SignedUserVersion.jsx";
+import jwt_decode from 'jwt-decode';
 
-const RegisterPage = () => {
+const RegisterPage = (props) => {
 
     const [username, setUsername] = useState("");
     const [usernameError, setUsernameError] = useState(false);
@@ -58,6 +58,11 @@ const RegisterPage = () => {
             .then((data) => {
                 localStorage.setItem('token', data.token); //oder sessionStorage.setItem.....
                 console.log("Token saved in localStorage");
+                const jwt = data.token;
+                const decodedToken = jwt_decode(jwt);
+                console.log("DecodedToken: ", decodedToken);
+                props.setUser(decodedToken)
+                navigate("/logged-in")
             })
             .catch((err) => console.log(`Hey, there is an ${err}`));
     };
