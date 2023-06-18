@@ -12,8 +12,8 @@ function SignedUserVersion(props) {
 
     return(
         <>
-            <Navbar setUser={props.setUser} />
-            <ButtonSection />
+            <Navbar user={props.user} setUser={props.setUser} />
+            <ButtonSection user={props.user} />
             <Footer />
         </>
     )

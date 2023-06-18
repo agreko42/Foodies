@@ -15,6 +15,7 @@ import {
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -70,6 +71,7 @@ const Navbar = (props) => {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -89,8 +91,9 @@ const Navbar = (props) => {
   };
 
   const handleSignout = () => {
-    props.setUser(false);
+    props.setUser(null);
     localStorage.clear();
+    navigate("/")
   }
 
   const menuId = 'primary-search-account-menu';
@@ -144,6 +147,9 @@ const Navbar = (props) => {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
+            <Typography>
+              {props.user == null ? "" : props.user.sub}
+            </Typography>
             <IconButton
               size="large"
               edge="end"
