@@ -4,7 +4,6 @@ import { Box, Button } from "@mui/material";
 import ResultBox from "./ResultBox.jsx";
 
 const WheelContainer = (props) => {
-
   const [food, setFood] = useState([]);
 
   let data = [
@@ -28,13 +27,14 @@ const WheelContainer = (props) => {
   const [currentResult, setCurrentResult] = useState("");
 
   const fetchAllGenericFood = async (chosenFilterBtn) => {
-    const foodData = await fetch(`http://localhost:8080/foodlist/${chosenFilterBtn}`)
+    const foodData = await fetch(
+      `http://localhost:8080/foodlist/${chosenFilterBtn}`
+    );
     const foodResult = await foodData.json();
     return foodResult;
-}
-  
+  };
 
-function handleSpinIt() {
+  function handleSpinIt() {
     let number = getRandomNumber(data.length);
     setWinningNumber(number);
     setCurrentResult("");
@@ -42,12 +42,9 @@ function handleSpinIt() {
   }
 
   useEffect(() => {
-    fetchAllGenericFood(props.filterBtn)
-        .then((food) => setFood(food));
-}, [props.filterBtn]);
-  
+    fetchAllGenericFood(props.filterBtn).then((food) => setFood(food));
+  }, [props.filterBtn]);
 
-  
   return (
     <Box>
       <Wheel
@@ -64,9 +61,7 @@ function handleSpinIt() {
         textDistance={75}
         textColors={["#ffffff"]}
       />
-      <Button onClick={() => handleSpinIt()}>
-                    Spin It!
-                </Button>
+      <Button onClick={() => handleSpinIt()}>Spin It!</Button>
       {currentResult === "" ? (
         ""
       ) : winningNumber === 0 ? (
@@ -84,7 +79,5 @@ function handleSpinIt() {
 function getRandomNumber(limit) {
   return Math.floor(Math.random() * limit);
 }
-
-
 
 export default WheelContainer;

@@ -6,32 +6,31 @@ import { useState } from "react";
 import MenuOptions from "./components/MenuOptions.jsx";
 import { Box } from "@mui/material";
 
-
 function FreeUserVersion() {
-
-    const [filterBtnForFood, setFilterBtnForFood] = useState("sweet");
+  const [filterBtnForFood, setFilterBtnForFood] = useState("sweet");
 
   return (
     <>
-        <Navbar />
-        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-around", alignItems: "center" }}>
-            <Box>
-                <MenuOptions
-                    setFilterBtnChange={setFilterBtnForFood}
-                    />
-            </Box>
-            <Box>
-                <ContentSection
-                    filterBtn={filterBtnForFood}
-                />
-            </Box>            
-            <Box>
-                for test purposes
-            </Box>
+      <Navbar />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
+        }}
+      >
+        <Box>
+          <MenuOptions setFilterBtnChange={setFilterBtnForFood} />
         </Box>
-        <Footer />
+        <Box>
+          <ContentSection filterBtn={filterBtnForFood} />
+        </Box>
+        <Box>for test purposes</Box>
+      </Box>
+      <Footer />
     </>
-  )
+  );
 }
 
-export default FreeUserVersion
+export default FreeUserVersion;

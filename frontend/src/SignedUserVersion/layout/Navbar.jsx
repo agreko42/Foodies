@@ -10,10 +10,10 @@ import {
   Stack,
   CssBaseline,
   Menu,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MoreIcon from '@mui/icons-material/MoreVert';
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import MoreIcon from "@mui/icons-material/MoreVert";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -23,14 +23,14 @@ const Search = styled("div")(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25)
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
-    width: "auto"
-  }
+    width: "auto",
+  },
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -40,7 +40,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   pointerEvents: "none",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center"
+  justifyContent: "center",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -54,20 +54,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     [theme.breakpoints.up("sm")]: {
       width: "12ch",
       "&:focus": {
-        width: "20ch"
-      }
-    }
-  }
+        width: "20ch",
+      },
+    },
+  },
 }));
 
 const CustomAppBar = styled(AppBar)(({ theme }) => ({
-    backgroundColor: "brown" // Set the desired background color
-  }));
-
+  backgroundColor: "brown", // Set the desired background color
+}));
 
 const Navbar = (props) => {
-
-    const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
@@ -95,22 +93,22 @@ const Navbar = (props) => {
   const handleSignout = () => {
     props.setUser(null);
     localStorage.clear();
-    navigate("/")
-  }
+    navigate("/");
+  };
 
-  const menuId = 'primary-search-account-menu';
+  const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       id={menuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
@@ -121,51 +119,51 @@ const Navbar = (props) => {
     </Menu>
   );
 
-    return ( 
-        <Box sx={{ flexGrow: 1 }}>
-        <CssBaseline />
-        <CustomAppBar position="static">
-          <Toolbar
-            sx={{
-              justifyContent: "space-between"
-            }}
-          >
-            <Stack direction="row" alignItems="center">
-              <Typography
-                variant="h5"
-                noWrap
-                component="div"
-                sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-              >
-                Foodies
-              </Typography>
-            </Stack>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
-            {/* {props.user == null ? "" : props.user.sub } */}
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <CssBaseline />
+      <CustomAppBar position="static">
+        <Toolbar
+          sx={{
+            justifyContent: "space-between",
+          }}
+        >
+          <Stack direction="row" alignItems="center">
+            <Typography
+              variant="h5"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
-              <AccountCircle />
-            </IconButton>
-          </Toolbar>
-        </CustomAppBar>
+              Foodies
+            </Typography>
+          </Stack>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
+          {/* {props.user == null ? "" : props.user.sub } */}
+          <IconButton
+            size="large"
+            edge="end"
+            aria-label="account of current user"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={handleProfileMenuOpen}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+        </Toolbar>
+      </CustomAppBar>
       {renderMenu}
-      </Box>
-     );
-}
- 
+    </Box>
+  );
+};
+
 export default Navbar;
