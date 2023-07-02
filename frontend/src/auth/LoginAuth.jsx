@@ -1,4 +1,3 @@
-import baseUrl from "../config/baseUrl";
 import api from "../config/api";
 import jwt_decode from "jwt-decode";
 
@@ -14,7 +13,7 @@ const LoginAuth = (username, userPassword, user, navigate) => {
     password: userPassword,
   };
 
-  fetch(baseUrl + api.LOGIN.getUrl, {
+  fetch(api.LOGIN.getUrl, {
     method: api.LOGIN.method,
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userInput),

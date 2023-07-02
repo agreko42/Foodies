@@ -1,4 +1,3 @@
-import baseUrl from "../config/baseUrl";
 import api from "../config/api";
 import jwt_decode from "jwt-decode";
 
@@ -17,7 +16,7 @@ const RegisterAuth = (username, userEmail, userPassword, navigate, user) => {
     password: userPassword,
   };
 
-  fetch(baseUrl + api.REGISTER.getUrl, {
+  fetch(api.REGISTER.getUrl, {
     method: api.REGISTER.method,
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userInput),
