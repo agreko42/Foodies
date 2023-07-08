@@ -1,5 +1,6 @@
 package com.foodies.backend.recipeLogic;
 
+import com.foodies.backend.recipeLogic.dbConnection.Ingredient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,4 +19,5 @@ public class postRecipeRequest {
     List<String> comments;
     String flavourType;
     // TODO: does it work with private?
+    List<Ingredient> ingredients;
 }

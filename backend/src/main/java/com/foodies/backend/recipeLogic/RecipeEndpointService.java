@@ -33,14 +33,19 @@ public class RecipeEndpointService {
 
     public long postRecipe(postRecipeRequest request) {
         System.out.println("post is tried -----------------------------------------");
-        Recipe recipe = new Recipe(1,
+        System.out.println(request.getIngredients().get(0).getAmount());
+        Recipe recipe = new Recipe( 1,
                 request.getName(),
                 request.getOwnerId(),
                 request.getSteps(),
                 request.getComments(),
-                FlavourType.valueOf(request.getFlavourType()));
+                FlavourType.valueOf(request.getFlavourType()),
+                request.getIngredients()
+        );
         System.out.println(recipe.getName());
         System.out.println(recipe.getFlavourType().getType());
-       return repository.save(recipe).getId();
+        System.out.println(recipe.getIngredients().size());
+        System.out.println(recipe.getIngredients().get(0));
+       return repository.save(recipe).getRecipeId();
     }
 }

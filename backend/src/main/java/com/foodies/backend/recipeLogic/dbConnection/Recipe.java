@@ -1,11 +1,7 @@
 package com.foodies.backend.recipeLogic.dbConnection;
 
 import com.foodies.backend.recipeLogic.FlavourType;
-import com.foodies.backend.recipeLogic.Ingredient;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -17,25 +13,24 @@ import java.util.List;
 public class Recipe {
 
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedValue()
+    private long recipeId;
     private String name;
 
     private long ownerId;
-
-   // @ElementCollection
-   // List<Ingredient> ingredients;
     @ElementCollection
     List<String> steps;
     @ElementCollection
     List<String> comments;
     FlavourType flavourType;
+    @OneToMany(mappedBy="recipe")
+    private List<Ingredient> ingredients;
 
 
     protected Recipe (){}
 
-    public long getId() {
-        return id;
+    public long getRecipeId() {
+        return recipeId;
     }
 
     public long getOwnerId() {
@@ -60,5 +55,9 @@ public class Recipe {
 
     public FlavourType getFlavourType() {
         return flavourType;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
     }
 }
