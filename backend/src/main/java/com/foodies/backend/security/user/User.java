@@ -29,6 +29,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    //TODO: Elementcollection mit Rezept-ids, Collection of people (IDs) followed
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
