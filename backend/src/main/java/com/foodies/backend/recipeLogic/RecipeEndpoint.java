@@ -23,13 +23,8 @@ public class RecipeEndpoint {
     }
 
     @PostMapping("/post")
-    public Long postRecipe(@RequestBody postRecipeRequest recipeRequest){
-        try{
-            return recipeService.postRecipe(recipeRequest);
-        }
-        catch(Exception e) {
-            return (long)42;
-        }
+    public Recipe postRecipe(@RequestBody Recipe recipe){
+        return recipeService.postRecipe(recipe);
     }
 }
 
