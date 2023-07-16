@@ -1,9 +1,8 @@
 package com.foodies.backend.data;
 
 public enum MenuType {
-    BREAKFAST("breakfast"),
-    LUNCH("lunch"),
-    DINNER("dinner");
+    SWEET("sweet"),
+    SEVERY("severy");
 
     private String menuType;
 

@@ -28,35 +28,25 @@ public class FoodListEndpoint {
         return foodListEndpointService.getRandomDishByUserChoice(type);
     }
 
+    @GetMapping("/sweet")
+    public List<Dish> getSweetDishes(){
+        return foodListEndpointService.getSweetDishes();
 
-
-    @GetMapping("/breakfast")
-    public List<Dish> getBreakfastDishes(){
-        return foodListEndpointService.getBreakfastDishes();
     }
 
-    @GetMapping("/dinner")
-    public List<Dish> getDinnerDishes(){
-        return foodListEndpointService.getDinnerDishes();
+    @GetMapping("/severy")
+    public List<Dish> getSeveryDishes(){
+        return foodListEndpointService.getSeveryDishes();
     }
 
-    @GetMapping("/lunch")
-    public List<Dish> getLunchDishes(){
-        return foodListEndpointService.getLunchDishes();
+    @PostMapping("/add-sweet")
+    public List<Dish> addSweetDishAndShowAllLists(@RequestBody Dish dish){
+        return foodListEndpointService.addSweetDishAndShowAllLists(dish);
     }
 
-    @PostMapping("/add-breakfast")
-    public List<Dish> addBreakfastDishAndShowAllLists(@RequestBody Dish dish){
-        return foodListEndpointService.addBreakfastDishAndShowAllLists(dish);
+    @PostMapping("/add-severy")
+    public List<Dish> addSeveryAndShowDinnerList(@RequestBody Dish dish){
+        return foodListEndpointService.addSeveryAndShowDinnerList(dish);
     }
 
-    @PostMapping("/add-dinner")
-    public List<Dish> addDinnerAndShowDinnerList(@RequestBody Dish dish){
-        return foodListEndpointService.addDinnerAndShowDinnerList(dish);
-    }
-
-    @PostMapping("/add-lunch")
-    public List<Dish> addLaunchAndShowLunchList(@RequestBody Dish dish){
-        return foodListEndpointService.addLaunchAndShowLunchList(dish);
-    }
 }
