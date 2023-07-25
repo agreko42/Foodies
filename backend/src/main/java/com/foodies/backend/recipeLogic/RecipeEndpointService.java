@@ -1,5 +1,7 @@
 package com.foodies.backend.recipeLogic;
 
+import com.foodies.backend.recipeLogic.dbConnection.Ingredient;
+import com.foodies.backend.recipeLogic.dbConnection.IngredientRepository;
 import com.foodies.backend.recipeLogic.dbConnection.Recipe;
 import com.foodies.backend.recipeLogic.dbConnection.RecipeRepository;
 import jakarta.persistence.GeneratedValue;
@@ -8,11 +10,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
 public class RecipeEndpointService {
-    private final RecipeRepository repository;
+    private final RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
 
 
     public List<Recipe> getRecipesByFlavourType(String type) {
@@ -21,17 +25,17 @@ public class RecipeEndpointService {
         String case2 = FlavourType.SAVOURY.getType();
 
         if(typeString.equalsIgnoreCase(case1)){
-            return repository.findByFlavourType(FlavourType.SWEET);
+            return recipeRepository.findByFlavourType(FlavourType.SWEET);
         }
         else if (typeString.equalsIgnoreCase(case2)) {
-            return repository.findByFlavourType(FlavourType.SAVOURY);
+            return recipeRepository.findByFlavourType(FlavourType.SAVOURY);
         }
         else{
-            return repository.findAll();
+            return recipeRepository.findAll();
         }
     }
 
     public Recipe postRecipe(Recipe recipe) {
-         return repository.save(recipe);
+        return recipeRepository.save(recipe);
     }
 }

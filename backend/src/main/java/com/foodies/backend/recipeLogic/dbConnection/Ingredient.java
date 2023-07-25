@@ -30,4 +30,36 @@ public class Ingredient {
     public void setRecipes(Set<Recipe> recipes) {
         this.recipes = recipes;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public UnitEnum getUnit() {
+        return unit;
+    }
+
+    public void setUnit(UnitEnum unit) {
+        this.unit = unit;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
