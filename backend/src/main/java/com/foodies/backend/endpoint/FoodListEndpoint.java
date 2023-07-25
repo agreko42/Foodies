@@ -34,9 +34,9 @@ public class FoodListEndpoint {
 
     }
 
-    @GetMapping("/severy")
-    public List<Dish> getSeveryDishes(){
-        return foodListEndpointService.getSeveryDishes();
+    @GetMapping("/savoury")
+    public List<Dish> getSavouryDishes(){
+        return foodListEndpointService.getSavouryDishes();
     }
 
     @PostMapping("/add-sweet")
@@ -44,8 +44,8 @@ public class FoodListEndpoint {
         return foodListEndpointService.addSweetDishAndShowAllLists(dish);
     }
 
-    @PostMapping("/add-severy")
-    public List<Dish> addSeveryAndShowDinnerList(@RequestBody Dish dish){
+    @PostMapping("/add-savoury")
+    public List<Dish> addSavouryAndShowDinnerList(@RequestBody Dish dish){
         return foodListEndpointService.addSeveryAndShowDinnerList(dish);
     }
 

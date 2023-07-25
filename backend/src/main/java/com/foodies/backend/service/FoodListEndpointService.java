@@ -35,8 +35,8 @@ public class FoodListEndpointService {
         return foodListStorageService.getDishesByType(MenuType.SWEET);
     }
 
-    public List<Dish> getSeveryDishes(){
-        return foodListStorageService.getDishesByType(MenuType.SEVERY);
+    public List<Dish> getSavouryDishes(){
+        return foodListStorageService.getDishesByType(MenuType.SAVOURY);
     }
 
     public List<Dish> addSweetDishAndShowAllLists(@RequestBody Dish dish){
@@ -44,7 +44,7 @@ public class FoodListEndpointService {
     }
 
     public List<Dish> addSeveryAndShowDinnerList(@RequestBody Dish dish){
-        return foodListStorageService.addDish(dish, MenuType.SEVERY);
+        return foodListStorageService.addDish(dish, MenuType.SAVOURY);
     }
 
 }
