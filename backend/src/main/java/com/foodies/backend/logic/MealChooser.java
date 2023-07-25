@@ -21,12 +21,12 @@ public class MealChooser {
         //java: Muster in Switch-Anweisungen sind ein Vorschaufeature, das standardmäßig deaktiviert ist.
         //  (Verwenden Sie --enable-preview, um Muster in Switch-Anweisungen zu aktivieren)
         String breakfast = MenuType.SWEET.getMenuType();
-        String lunch = MenuType.SEVERY.getMenuType();
+        String lunch = MenuType.SAVOURY.getMenuType();
         switch(choiceString){
             case("sweet"): // TODO: Instead of hardcoding the strings here, do enums or constants in interfaces
                 return services.getRandomMeal(foodlists.getDishesByType(MenuType.SWEET));
-            case("severy"):
-                return services.getRandomMeal(foodlists.getDishesByType(MenuType.SEVERY));
+            case("savoury"):
+                return services.getRandomMeal(foodlists.getDishesByType(MenuType.SAVOURY));
             default:
                 return "No valid category chosen";
         }

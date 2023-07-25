@@ -1,5 +1,6 @@
-package com.foodies.backend.recipeLogic;
+package com.foodies.backend.recipeLogic.dbConnection;
 
+import com.foodies.backend.recipeLogic.UnitEnum;
 import com.foodies.backend.recipeLogic.dbConnection.Recipe;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

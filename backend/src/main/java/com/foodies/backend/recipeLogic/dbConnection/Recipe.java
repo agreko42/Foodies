@@ -1,7 +1,6 @@
 package com.foodies.backend.recipeLogic.dbConnection;
 
 import com.foodies.backend.recipeLogic.FlavourType;
-import com.foodies.backend.recipeLogic.Ingredient;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
