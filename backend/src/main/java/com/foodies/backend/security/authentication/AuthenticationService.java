@@ -3,12 +3,10 @@ package com.foodies.backend.security.authentication;
 import com.foodies.backend.security.config.JwtService;
 import com.foodies.backend.security.user.Role;
 import com.foodies.backend.security.user.User;
-import com.foodies.backend.security.user.UserPrincipal;
 import com.foodies.backend.security.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +26,7 @@ public class AuthenticationService {
                 .role(Role.USER)
                 .build();
         repository.save(user);
-        var userPrincipal = new UserPrincipal(user);
-        var jwToken = jwtService.generateToken(userPrincipal);
+        var jwToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwToken)
                 .build();
@@ -44,8 +41,7 @@ public class AuthenticationService {
         );
         var user = repository.findByUsername(request.getUsername())
                 .orElseThrow();
-        var userPrincipal = new UserPrincipal(user);
-        var jwToken = jwtService.generateToken(userPrincipal);
+        var jwToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwToken)
                 .build();
