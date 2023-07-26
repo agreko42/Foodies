@@ -32,13 +32,10 @@ public class Recipe {
     joinColumns = {@JoinColumn(name = "recipe_id")},
     inverseJoinColumns = {@JoinColumn(name = "ingredient_id")})
     private Set<Ingredient> ingredients = new HashSet<>();
-
-   /*
-    @ManyToOne
+    @ManyToOne //TODO: cascade doesnt work why? Enes
     @JoinColumn(name = "_user_id")
     private User user;
 
-    */
 
     public Set<Ingredient> getIngredients() {
         return ingredients;
@@ -87,7 +84,7 @@ public class Recipe {
     public void setFlavourType(FlavourType flavourType) {
         this.flavourType = flavourType;
     }
-    /*
+
     public User getUser() {
         return user;
     }
@@ -96,5 +93,5 @@ public class Recipe {
         this.user = user;
     }
 
-     */
+
 }

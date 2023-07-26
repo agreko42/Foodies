@@ -30,12 +30,9 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    /*
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Recipe> recipes = new ArrayList<>();
 
-     */
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
