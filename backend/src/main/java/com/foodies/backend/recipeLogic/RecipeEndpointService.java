@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @Component
 public class RecipeEndpointService {
     private final RecipeRepository recipeRepository;
-    private final IngredientRepository ingredientRepository;
 
 
     public List<Recipe> getRecipesByFlavourType(String type) {
