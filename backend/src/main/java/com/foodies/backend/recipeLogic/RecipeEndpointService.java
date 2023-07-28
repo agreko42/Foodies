@@ -4,12 +4,16 @@ import com.foodies.backend.recipeLogic.dbConnection.Ingredient;
 import com.foodies.backend.recipeLogic.dbConnection.IngredientRepository;
 import com.foodies.backend.recipeLogic.dbConnection.Recipe;
 import com.foodies.backend.recipeLogic.dbConnection.RecipeRepository;
+import com.foodies.backend.security.user.User;
+import com.foodies.backend.security.user.UserRepository;
 import jakarta.persistence.GeneratedValue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
