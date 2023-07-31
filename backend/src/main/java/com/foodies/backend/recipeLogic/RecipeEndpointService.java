@@ -18,14 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class RecipeEndpointService {
     private final RecipeRepository recipeRepository;
-<<<<<<< HEAD
-<<<<<<< HEAD
     private final UserRepository userRepository;
-    private final IngredientRepository ingredientRepository;
-=======
->>>>>>> 551095a5c30063974c7c396427c622370e5a66e8
-=======
->>>>>>> 3ab0290c46fc67d46ab718b4b61d13b03dd3108d
 
 
     public List<RecipeDTO> getRecipesByFlavourType(String type) {
