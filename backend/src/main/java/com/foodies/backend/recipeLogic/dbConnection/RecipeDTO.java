@@ -8,15 +8,16 @@ import java.util.Set;
 public class RecipeDTO {
 
     private Long id;
-    private Long userId;
+    private String userName;
     private String name;
     private List<String> steps;
     private List<String> comments;
     private FlavourType flavourType;
     private Set<IngredientDTO> ingredients;
 
-    public RecipeDTO(Long id, String name, List<String> steps, List<String> comments, FlavourType flavourType, Set<IngredientDTO> ingredients) {
+    public RecipeDTO(Long id, String userName, String name, List<String> steps, List<String> comments, FlavourType flavourType, Set<IngredientDTO> ingredients) {
         this.id = id;
+        this.userName = userName;
         this.name = name;
         this.steps = steps;
         this.comments = comments;
@@ -35,12 +36,12 @@ public class RecipeDTO {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getName() {

@@ -1,17 +1,17 @@
 
 import {useState, useEffect} from "react";
 
-
 const postUserFood = async (postBody) => {
-    const response = await fetch(`http://localhost:8080/recipe/post`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(postBody)
-    })
-    return await response.json();
-}
+    //TODO: jwToken im Header, oder Usernamen aus jwt holen und in die url geben
+  const response = await fetch(`http://localhost:8080/recipe/post/a`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(postBody),
+  });
+  return await response.json();
+};
 
 const getUnitsForDd = async () => {
     const response = await fetch(`http://localhost:8080/recipe/units`, {
@@ -19,29 +19,24 @@ const getUnitsForDd = async () => {
         headers: {},
     })
     return await response.json();
-}
-
-
-
+};
 
 const PostForm = () => {
-
-    const [inputs, setInputs] = useState({
-        steps:[],
-        ingredients: [],
-        comments:[]
-    });
-    const [stepInput, setStepInput] = useState();
-    const [commentInput, setCommentInput] = useState();
-    const [ingredientInput, setIngredientInput] = useState({});
-    const [checked, setChecked] = useState([true, false]);
-    const [DdUnits, setDdUnits] = useState(["", ""]);
+  const [inputs, setInputs] = useState({
+    steps: [],
+    ingredients: [],
+    comments: [],
+  });
+  const [stepInput, setStepInput] = useState();
+  const [commentInput, setCommentInput] = useState();
+  const [ingredientInput, setIngredientInput] = useState({});
+  const [checked, setChecked] = useState([true, false]);
+  const [DdUnits, setDdUnits] = useState(["", ""]);
 
     useEffect( () => {
         getUnitsForDd(DdUnits, setDdUnits)
             .then(res => setDdUnits(res))
     }, [])
-
 
     const handleSubmit = () =>{
         let cleanIngredientInput = inputs.ingredients.map(ingredient => ({...ingredient, "unit": ingredient.unit.toUpperCase()}));
@@ -60,43 +55,42 @@ const PostForm = () => {
     const handleInput = (e) => {
         const name = e.target.name;
         const value = e.target.value;
+        setInputs((values) => ({ ...values, [name]: value }));
+  };
+  const addStepLine = () => {
+    let moreSteps = [...inputs.steps, stepInput];
+    setInputs({ ...inputs, steps: moreSteps });
+    setStepInput("");
+  };
+  const addCommentLine = () => {
+    let moreComments = [...inputs.comments, commentInput];
+    setInputs({ ...inputs, comments: moreComments });
+    setCommentInput("");
+  };
+  const addIngredientLine = () => {
+    let moreIngredients = [...inputs.ingredients, ingredientInput];
+    setInputs({ ...inputs, ingredients: moreIngredients });
+    setIngredientInput("");
+  };
+  const handleIngredientInput = (e) => {
+    const id = e.target.name;
+    const value = e.target.value;
+    setIngredientInput({ ...ingredientInput, [id]: value });
+    console.log(ingredientInput);
+  };
+  const handleStepInput = (e) => {
+    setStepInput(e.target.value);
+  };
+  const handleCommentInput = (e) => {
+    setCommentInput(e.target.value);
+  };
 
-        setInputs(values => ({...values, [name]:value}) );
-    }
-    const addStepLine = () => {
-        let moreSteps = [...inputs.steps, stepInput];
-        setInputs({...inputs, steps: moreSteps});
-        setStepInput("")
-    }
-    const addCommentLine = () => {
-        let moreComments = [...inputs.comments, commentInput];
-        setInputs({...inputs, comments: moreComments});
-        setCommentInput("")
-    }
-    const addIngredientLine = () => {
-        let moreIngredients = [...inputs.ingredients, ingredientInput];
-        setInputs({...inputs, ingredients: moreIngredients});
-        setIngredientInput("")
-    }
-    const handleIngredientInput = (e) => {
-        const id = e.target.name;
-        const value = e.target.value
-        setIngredientInput({...ingredientInput, [id]:value })
-        console.log(ingredientInput)
-    }
-    const handleStepInput = (e) => {
-        setStepInput(e.target.value)
-    }
-    const handleCommentInput = (e) => {
-        setCommentInput(e.target.value)
-    }
-
-    const handleSweet = () => {
-        setChecked([true, false]);
-    }
-    const handleSavoury = () => {
-        setChecked([false, true]);
-    }
+  const handleSweet = () => {
+    setChecked([true, false]);
+  };
+  const handleSavoury = () => {
+    setChecked([false, true]);
+  };
 
     return (
         <>
@@ -214,6 +208,7 @@ const PostForm = () => {
 
             </form>
 
+
             {/*}
                 <FormGroup>
                     <Input placeholder={"Enter a name!"} value={name} onChange={(e) => setName(e.target.value)}/>
@@ -225,9 +220,8 @@ const PostForm = () => {
                 </FormGroup>
 
             {*/}
-
-        </>
-    )
-}
+    </>
+  );
+};
 
 export default PostForm;

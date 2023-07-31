@@ -11,11 +11,16 @@ function SignedUserVersion(props) {
     setActiveComponent(componentName);
   };
 
+  console.log(activeComponent);
+
   return (
     <>
       <Navbar user={props.user} setUser={props.setUser} />
-      <ButtonSection user={props.user} />
-      <ContentSection activeComponent={activeComponent}/>
+      <ButtonSection
+        handleActiveComponentChange={handleActiveComponentChange}
+        user={props.user}
+      />
+      <ContentSection activeComponent={activeComponent} />
       <Footer />
     </>
   );
