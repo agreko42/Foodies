@@ -1,5 +1,6 @@
 package com.foodies.backend.recipeLogic.dbConnection;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.foodies.backend.recipeLogic.FlavourType;
 import com.foodies.backend.security.user.User;
 import jakarta.persistence.*;
@@ -18,7 +19,7 @@ public class Recipe {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String name;
 
     @ElementCollection
@@ -32,10 +33,10 @@ public class Recipe {
     joinColumns = {@JoinColumn(name = "recipe_id")},
     inverseJoinColumns = {@JoinColumn(name = "ingredient_id")})
     private Set<Ingredient> ingredients = new HashSet<>();
-    @ManyToOne //TODO: cascade doesnt work why? Enes
-    @JoinColumn(name = "_user_id")
-    private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Set<Ingredient> getIngredients() {
         return ingredients;
@@ -45,11 +46,11 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getName() {
@@ -92,6 +93,4 @@ public class Recipe {
     public void setUser(User user) {
         this.user = user;
     }
-
-
 }

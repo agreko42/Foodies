@@ -1,29 +1,25 @@
 package com.foodies.backend.recipeLogic.dbConnection;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.foodies.backend.recipeLogic.UnitEnum;
-import com.foodies.backend.recipeLogic.dbConnection.Recipe;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-public class Ingredient {
+public class IngredientDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private double amount;
     private UnitEnum unit;
     private String name;
 
-    @ManyToMany(mappedBy = "ingredients")
-    private Set<Recipe> recipes = new HashSet<>();
+    public IngredientDTO(Long id, double amount, UnitEnum unit, String name) {
+        this.id = id;
+        this.amount = amount;
+        this.unit = unit;
+        this.name = name;
+    }
+
+    public IngredientDTO() {
+    }
 
     public Long getId() {
         return id;
@@ -31,14 +27,6 @@ public class Ingredient {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
     }
 
     public double getAmount() {
