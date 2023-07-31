@@ -12,4 +12,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     Recipe findById(long id);
     List<Recipe> findByFlavourType(FlavourType type);
     List<Recipe> findRecipesByUserId(Long id);
+    List<Recipe> findRecipesByUser_Username(String username);
 }

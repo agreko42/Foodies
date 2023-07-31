@@ -51,6 +51,12 @@ public class RecipeEndpointService {
         return recipes.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    public List<RecipeDTO> findRecipesByUser_Username(String username){
+        List<Recipe> recipes = recipeRepository.findRecipesByUser_Username(username);
+        System.out.println("recipes: " + recipes);
+        return recipes.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
     private RecipeDTO convertToDTO(Recipe recipe) {
         RecipeDTO recipeDTO = new RecipeDTO();
         recipeDTO.setId(recipe.getId());

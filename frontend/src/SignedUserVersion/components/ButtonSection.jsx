@@ -14,7 +14,7 @@ const buttonTheme = createTheme({
   },
 });
 
-const ButtonSection = () => {
+const ButtonSection = ({ handleActiveComponentChange }) => {
   return (
     <ThemeProvider theme={buttonTheme}>
       <Box
@@ -31,7 +31,9 @@ const ButtonSection = () => {
         >
           <Button>Ranking</Button>
           <Button>Wheel</Button>
-          <Button>Collections</Button>
+          <Button onClick={() => handleActiveComponentChange("Collection")}>
+            Collections
+          </Button>
           <Button>Friends</Button>
           <Button>Post</Button>
         </ButtonGroup>

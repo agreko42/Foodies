@@ -38,9 +38,9 @@ public class RecipeEndpoint {
         return ResponseEntity.ok(recipe);
     }
 
-    @GetMapping("/user/{userId}")
-    public List<RecipeDTO> getRecipesByUser(@PathVariable Long userId){ //String username für Frontend wegen token
-        return recipeService.findRecipesByUserId(userId);
+    @GetMapping("/user/{username}")
+    public List<RecipeDTO> findRecipesByUser_Username(@PathVariable String username){ //String username für Frontend wegen token
+        return recipeService.findRecipesByUser_Username(username);
     }
 
 
