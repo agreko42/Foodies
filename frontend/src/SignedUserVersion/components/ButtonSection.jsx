@@ -33,6 +33,7 @@ const ButtonSection = () => {
           <Button>Wheel</Button>
           <Button>Collections</Button>
           <Button>Friends</Button>
+          <Button>Post</Button>
         </ButtonGroup>
       </Box>
     </ThemeProvider>
