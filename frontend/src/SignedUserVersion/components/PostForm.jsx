@@ -26,9 +26,9 @@ const PostForm = () => {
     const [stepInput, setStepInput] = useState();
     const [commentInput, setCommentInput] = useState();
     const [ingredientInput, setIngredientInput] = useState({});
-    const [checked, setChecked] = useState([false, false]);
+    const [checked, setChecked] = useState([true, false]);
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = () =>{
         let postBody = {
             "name": `${inputs.name}`,
             "ingredients": inputs.ingredients,
@@ -75,10 +75,10 @@ const PostForm = () => {
         setCommentInput(e.target.value)
     }
 
-    const handleSweet = (e) => {
+    const handleSweet = () => {
         setChecked([true, false]);
     }
-    const handleSavoury = (e) => {
+    const handleSavoury = () => {
         setChecked([false, true]);
     }
 
