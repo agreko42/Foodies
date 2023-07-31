@@ -45,6 +45,7 @@ public class BeansConfiguration {
         return new FoodListStorageService(FoodListLoader());
     }
 
+
     @Bean
     MealChooser mealChooserLoader() {
         return new MealChooser(foodListStorageService(), new Service(randomNumberGenerator()), randomNumberGenerator());
@@ -60,14 +61,4 @@ public class BeansConfiguration {
         return new FoodListEndpointService(foodListStorageService(), mealChooserLoader());
     }
 
-    /*
-        @Bean
-        RecipeEndpointService recipeEndpointService () {
-        return new RecipeEndpointService(recipeRepository());
-    }
-        @Bean
-        public RecipeRepository recipeRepository (RecipeRepository repository){
-        return repository;
-    }
-    */
 }
