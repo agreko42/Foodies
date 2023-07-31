@@ -44,9 +44,9 @@ public class RecipeEndpoint {
     }
 
 
-    @PostMapping("/post")
-    public ResponseEntity<RecipeDTO> postRecipe(@RequestBody RecipeDTO recipeDTO) {
-        RecipeDTO savedRecipe = recipeService.postRecipe(recipeDTO);
+    @PostMapping("/post/{username}")
+    public ResponseEntity<RecipeDTO> postRecipe(@RequestBody RecipeDTO recipeDTO, @PathVariable String username) {
+        RecipeDTO savedRecipe = recipeService.postRecipe(recipeDTO, username);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedRecipe);
     }
 

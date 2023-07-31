@@ -1,206 +1,177 @@
-
-import {useState} from "react";
-
+import { useState } from "react";
 
 const postUserFood = async (postBody) => {
-    const response = await fetch(`http://localhost:8080/recipe/post`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(postBody)
-    })
-    return await response.json();
-}
-
-
+  const response = await fetch(`http://localhost:8080/recipe/post/Enes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(postBody),
+  });
+  return await response.json();
+};
 
 const PostForm = () => {
+  const [inputs, setInputs] = useState({
+    steps: [],
+    ingredients: [],
+    comments: [],
+  });
+  const [stepInput, setStepInput] = useState();
+  const [commentInput, setCommentInput] = useState();
+  const [ingredientInput, setIngredientInput] = useState({});
+  const [checked, setChecked] = useState([true, false]);
 
-    const [inputs, setInputs] = useState({
-        steps:[],
-        ingredients: [],
-        comments:[]
+  const handleSubmit = () => {
+    let postBody = {
+      name: `${inputs.name}`,
+      ingredients: inputs.ingredients,
+      steps: inputs.steps,
+      comments: inputs.comments,
+      flavourType: `${checked[0] ? "SWEET" : checked[1] ? "SAVOURY" : ""}`,
+    };
+    console.log(postBody);
+    postUserFood(postBody).then((response) => console.log(response));
+  };
+  const handleInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
 
-    });
-    const [stepInput, setStepInput] = useState();
-    const [commentInput, setCommentInput] = useState();
-    const [ingredientInput, setIngredientInput] = useState({});
-    const [checked, setChecked] = useState([true, false]);
+    setInputs((values) => ({ ...values, [name]: value }));
+  };
+  const addStepLine = () => {
+    let moreSteps = [...inputs.steps, stepInput];
+    setInputs({ ...inputs, steps: moreSteps });
+    setStepInput("");
+  };
+  const addCommentLine = () => {
+    let moreComments = [...inputs.comments, commentInput];
+    setInputs({ ...inputs, comments: moreComments });
+    setCommentInput("");
+  };
+  const addIngredientLine = () => {
+    let moreIngredients = [...inputs.ingredients, ingredientInput];
+    setInputs({ ...inputs, ingredients: moreIngredients });
+    setIngredientInput("");
+  };
+  const handleIngredientInput = (e) => {
+    const id = e.target.name;
+    const value = e.target.value;
+    setIngredientInput({ ...ingredientInput, [id]: value });
+    console.log(ingredientInput);
+  };
+  const handleStepInput = (e) => {
+    setStepInput(e.target.value);
+  };
+  const handleCommentInput = (e) => {
+    setCommentInput(e.target.value);
+  };
 
-    const handleSubmit = () =>{
-        let postBody = {
-            "name": `${inputs.name}`,
-            "ingredients": inputs.ingredients,
-            "steps" : inputs.steps,
-            "comments" : inputs.comments,
-            "flavourType" : `${checked[0] ? "SWEET"
-            : checked[1] ? "SAVOURY" : ""}`
-        }
-        console.log(postBody)
-        postUserFood(postBody)
-            .then( (response) => console.log(response))
-    }
-    const handleInput = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
+  const handleSweet = () => {
+    setChecked([true, false]);
+  };
+  const handleSavoury = () => {
+    setChecked([false, true]);
+  };
 
-        setInputs(values => ({...values, [name]:value}) );
-    }
-    const addStepLine = () => {
-        let moreSteps = [...inputs.steps, stepInput];
-        setInputs({...inputs, steps: moreSteps});
-        setStepInput("")
-    }
-    const addCommentLine = () => {
-        let moreComments = [...inputs.comments, commentInput];
-        setInputs({...inputs, comments: moreComments});
-        setCommentInput("")
-    }
-    const addIngredientLine = () => {
-        let moreIngredients = [...inputs.ingredients, ingredientInput];
-        setInputs({...inputs, ingredients: moreIngredients});
-        setIngredientInput("")
-    }
-    const handleIngredientInput = (e) => {
-        const id = e.target.name;
-        const value = e.target.value
-        setIngredientInput({...ingredientInput, [id]:value })
-        console.log(ingredientInput)
-    }
-    const handleStepInput = (e) => {
-        setStepInput(e.target.value)
-    }
-    const handleCommentInput = (e) => {
-        setCommentInput(e.target.value)
-    }
+  return (
+    <>
+      <form /*onSubmit={handleSubmit}*/>
+        <label>
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={inputs.name || ""}
+            onChange={handleInput}
+          />
+        </label>
 
-    const handleSweet = () => {
-        setChecked([true, false]);
-    }
-    const handleSavoury = () => {
-        setChecked([false, true]);
-    }
+        <ol>
+          {inputs.ingredients.map((ingredient, index) => (
+            <li key={index}>
+              {ingredient.amount} {ingredient.unit} {ingredient.name}
+            </li>
+          ))}
+        </ol>
+        <label>
+          Ingredients:
+          <input
+            type="number"
+            name="amount"
+            value={ingredientInput.amount || ""}
+            onChange={handleIngredientInput}
+          />
+          <input
+            type="text"
+            name="unit"
+            value={ingredientInput.unit || ""}
+            onChange={handleIngredientInput}
+          />
+          <input
+            type="text"
+            name="name"
+            value={ingredientInput.name || ""}
+            onChange={handleIngredientInput}
+          />
+          <input type="button" value={"+"} onClick={addIngredientLine} />
+        </label>
 
+        <ol>
+          {inputs.steps.map((step, index) => (
+            <li key={index}>{step}</li>
+          ))}
+        </ol>
+        <label>
+          Next Step:
+          <input
+            type="text"
+            name="steps"
+            value={stepInput || ""}
+            onChange={handleStepInput}
+          />
+          <input type="button" value={"+"} onClick={addStepLine} />
+        </label>
 
+        <ol>
+          {inputs.comments.map((comment, index) => (
+            <li key={index}>{comment}</li>
+          ))}
+        </ol>
+        <label>
+          Comments:
+          <input
+            type="text"
+            name="comments"
+            value={commentInput || ""}
+            onChange={handleCommentInput}
+          />
+          <input type="button" value={"+"} onClick={addCommentLine} />
+        </label>
 
+        <label>
+          Sweet:
+          <input
+            type="checkbox"
+            onChange={handleSweet}
+            checked={checked[0]}
+            value={"Sweet"}
+          />
+        </label>
+        <label>
+          Savoury:
+          <input
+            type="checkbox"
+            onChange={handleSavoury}
+            checked={checked[1]}
+            value={"Savoury"}
+          />
+        </label>
 
+        <input type="button" onClick={handleSubmit} value={"Submit"} />
+      </form>
 
-
-
-    return (
-        <>
-            <form /*onSubmit={handleSubmit}*/>
-
-                <label>Name:
-                    <input
-                        type="text"
-                        name="name"
-                        value={inputs.name || ""}
-                        onChange = {handleInput}
-                    />
-                </label>
-
-                <ol>
-                    {
-                        inputs.ingredients.map( (ingredient, index) =>
-                            <li key={index}>
-                                {ingredient.amount} {ingredient.unit} {ingredient.name}
-                            </li> )
-                    }
-                </ol>
-                <label>Ingredients:
-                    <input
-                        type="number"
-                        name="amount"
-                        value={ingredientInput.amount || ""}
-                        onChange = {handleIngredientInput}
-                    />
-                    <input
-                        type="text"
-                        name="unit"
-                        value={ingredientInput.unit || ""}
-                        onChange = {handleIngredientInput}
-                    />
-                    <input
-                        type="text"
-                        name="name"
-                        value={ingredientInput.name || ""}
-                        onChange = {handleIngredientInput}
-                    />
-                    <input
-                        type="button"
-                        value={"+"}
-                        onClick={addIngredientLine}
-                    />
-                </label>
-
-                <ol>
-                    {
-                        inputs.steps.map( (step, index) =>
-                            <li key={index}>
-                                {step}
-                            </li> )
-                    }
-                </ol>
-                <label>Next Step:
-                    <input
-                        type="text"
-                        name="steps"
-                        value={stepInput || ""}
-                        onChange = {handleStepInput}
-                    />
-                    <input
-                        type="button"
-                        value={"+"}
-                        onClick={addStepLine}
-                    />
-                </label>
-
-                <ol>
-                    {
-                        inputs.comments.map( (comment, index) =>
-                            <li key={index}>
-                                {comment}
-                            </li> )
-                    }
-                </ol>
-                <label>Comments:
-                    <input
-                        type="text"
-                        name="comments"
-                        value={commentInput || ""}
-                        onChange = {handleCommentInput}
-                    />
-                    <input
-                        type="button"
-                        value={"+"}
-                        onClick={addCommentLine}
-                    />
-                </label>
-
-                <label>Sweet:
-                    <input type="checkbox"
-                           onChange={handleSweet}
-                           checked={checked[0]}
-                           value={"Sweet"}/>
-                </label>
-                <label>Savoury:
-                    <input type="checkbox"
-                           onChange={handleSavoury}
-                           checked={checked[1]}
-                           value={"Savoury"}/>
-                </label>
-
-
-
-                <input type="button"
-                onClick={handleSubmit}
-                value={"Submit"}/>
-
-            </form>
-
-            {/*}
+      {/*}
                 <FormGroup>
                     <Input placeholder={"Enter a name!"} value={name} onChange={(e) => setName(e.target.value)}/>
                     <Input placeholder={"Enter an img-Link!"} value={imgLink} onChange={(e) => setImgLink(e.target.value)}/>
@@ -211,9 +182,8 @@ const PostForm = () => {
                 </FormGroup>
 
             {*/}
-
-        </>
-    )
-}
+    </>
+  );
+};
 
 export default PostForm;

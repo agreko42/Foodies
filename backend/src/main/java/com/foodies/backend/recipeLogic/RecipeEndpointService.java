@@ -65,7 +65,7 @@ public class RecipeEndpointService {
         recipeDTO.setComments(recipe.getComments());
         recipeDTO.setFlavourType(recipe.getFlavourType());
         recipeDTO.setIngredients(recipe.getIngredients().stream().map(this::convertIngredientToDto).collect(Collectors.toSet()));
-        recipeDTO.setUserId(recipe.getUser().getId());
+        recipeDTO.setUserName(recipe.getUser().getUsername());
 
         return recipeDTO;
     }
@@ -85,13 +85,13 @@ public class RecipeEndpointService {
         return recipes.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public RecipeDTO postRecipe(RecipeDTO recipeDTO) {
-        Recipe recipe = convertToRecipeEntity(recipeDTO);
+    public RecipeDTO postRecipe(RecipeDTO recipeDTO, String username) {
+        Recipe recipe = convertToRecipeEntity(recipeDTO, username);
         Recipe savedRecipe = recipeRepository.save(recipe);
         return convertToDTO(savedRecipe);
     }
 
-    private Recipe convertToRecipeEntity(RecipeDTO recipeDTO) {
+    private Recipe convertToRecipeEntity(RecipeDTO recipeDTO, String username) {
         Recipe recipe = new Recipe();
         if(recipeDTO.getId() != null) {
             recipe.setId(recipeDTO.getId());
@@ -103,7 +103,7 @@ public class RecipeEndpointService {
         recipe.setIngredients(recipeDTO.getIngredients().stream()
                 .map(this::convertDtoToIngredient)
                 .collect(Collectors.toSet()));
-        User user = userRepository.findById(recipeDTO.getUserId())
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         recipe.setUser(user);
 
