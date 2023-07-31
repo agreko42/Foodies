@@ -26,6 +26,11 @@ public class RecipeEndpoint {
             return recipeService.getRecipesByFlavourType(type);
     }
 
+    @GetMapping("/units")
+    public List<UnitEnum> getUnits() {
+        return List.of(UnitEnum.values());
+    }
+
     @GetMapping("/list")
     public ResponseEntity<List<RecipeDTO>> getAllRecipes() {
         List<RecipeDTO> recipes = recipeService.getAllRecipes();

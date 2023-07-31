@@ -1,5 +1,5 @@
 
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 
 const postUserFood = async (postBody) => {
@@ -13,6 +13,15 @@ const postUserFood = async (postBody) => {
     return await response.json();
 }
 
+const getUnitsForDd = async () => {
+    const response = await fetch(`http://localhost:8080/recipe/units`, {
+        method: "GET",
+        headers: {},
+    })
+    return await response.json();
+}
+
+
 
 
 const PostForm = () => {
@@ -21,17 +30,24 @@ const PostForm = () => {
         steps:[],
         ingredients: [],
         comments:[]
-
     });
     const [stepInput, setStepInput] = useState();
     const [commentInput, setCommentInput] = useState();
     const [ingredientInput, setIngredientInput] = useState({});
     const [checked, setChecked] = useState([true, false]);
+    const [DdUnits, setDdUnits] = useState(["", ""]);
+
+    useEffect( () => {
+        getUnitsForDd(DdUnits, setDdUnits)
+            .then(res => setDdUnits(res))
+    }, [])
+
 
     const handleSubmit = () =>{
+        let cleanIngredientInput = inputs.ingredients.map(ingredient => ({...ingredient, "unit": ingredient.unit.toUpperCase()}));
         let postBody = {
             "name": `${inputs.name}`,
-            "ingredients": inputs.ingredients,
+            "ingredients": cleanIngredientInput,
             "steps" : inputs.steps,
             "comments" : inputs.comments,
             "flavourType" : `${checked[0] ? "SWEET"
@@ -39,7 +55,7 @@ const PostForm = () => {
         }
         console.log(postBody)
         postUserFood(postBody)
-            .then( (response) => console.log(response))
+            .then( (response) => console.log(response));
     }
     const handleInput = (e) => {
         const name = e.target.name;
@@ -82,12 +98,6 @@ const PostForm = () => {
         setChecked([false, true]);
     }
 
-
-
-
-
-
-
     return (
         <>
             <form /*onSubmit={handleSubmit}*/>
@@ -116,12 +126,16 @@ const PostForm = () => {
                         value={ingredientInput.amount || ""}
                         onChange = {handleIngredientInput}
                     />
-                    <input
-                        type="text"
+                    <select
+                        onChange={handleIngredientInput}
                         name="unit"
-                        value={ingredientInput.unit || ""}
-                        onChange = {handleIngredientInput}
-                    />
+                        value={ingredientInput.unit || ""}>
+                        {
+                            DdUnits.map( (unit, index) =>
+                            <option key={index}>{unit.toLowerCase()}</option>
+                            )
+                        }
+                    </select>
                     <input
                         type="text"
                         name="name"
