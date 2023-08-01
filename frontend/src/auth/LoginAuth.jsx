@@ -1,10 +1,19 @@
 import api from "../config/api";
 import jwt_decode from "jwt-decode";
 
-const LoginAuth = (username, userPassword, user, navigate) => {
+const LoginAuth = (
+  username,
+  userPassword,
+  user,
+  navigate,
+  setUsernameError,
+  setUserPasswordError
+) => {
   if (username.trim().length <= 0) {
+    setUsernameError(true);
     return;
   } else if (userPassword.trim().length <= 0) {
+    setUserPasswordError(true);
     return;
   }
 

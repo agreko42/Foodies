@@ -32,7 +32,14 @@ const LoginPage = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    LoginAuth(username, userPassword, props.setUser, navigate);
+    LoginAuth(
+      username,
+      userPassword,
+      props.setUser,
+      navigate,
+      setUsernameError,
+      setUserPasswordError
+    );
   };
 
   return (
@@ -47,7 +54,7 @@ const LoginPage = (props) => {
             src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
             alt="logo"
           />
-          Flowbite
+          Foodies
         </a>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -57,19 +64,27 @@ const LoginPage = (props) => {
             <form className="space-y-4 md:space-y-6" action="#">
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="username"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Your email
+                  Your username
                 </label>
                 <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com"
-                  required=""
+                  id="username"
+                  type="text"
+                  onChange={(e) => setUsername(e.target.value)}
+                  // onBlur={() => setUsernameError(!validateString(username))}
+                  className={`${
+                    !usernameError
+                      ? "border-gray-300 ring-blue-500"
+                      : "border-red-500 ring-red-500"
+                  } bg-gray-50 border rounded-lg text-gray-900 sm:text-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:ring-primary-600 focus:border-primary-600 block w-full`}
+                  placeholder="Enter your username"
+                  required
                 />
+                {usernameError && (
+                  <p className="text-red-500">Username is required</p>
+                )}
               </div>
               <div>
                 <label
@@ -79,13 +94,24 @@ const LoginPage = (props) => {
                   Password
                 </label>
                 <input
-                  type="password"
-                  name="password"
                   id="password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
+                  type={showPassword ? "text" : "password"}
+                  value={userPassword}
+                  onChange={(e) => setUserPassword(e.target.value)}
+                  // onBlur={() =>
+                  //   setUserPasswordError(!validateString(userPassword))
+                  // }
+                  className={`${
+                    !userPasswordError
+                      ? "border-gray-300 ring-blue-500"
+                      : "border-red-500 ring-red-500"
+                  } bg-gray-50 border rounded-lg text-gray-900 sm:text-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:ring-primary-600 focus:border-primary-600 block w-full`}
+                  placeholder="Enter password"
+                  required
                 />
+                {userPasswordError && (
+                  <p className="text-red-500">Password is required</p>
+                )}
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
@@ -115,8 +141,9 @@ const LoginPage = (props) => {
                 </a>
               </div>
               <button
+                onClick={handleSubmit}
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className="w-full text-grey bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Sign in
               </button>

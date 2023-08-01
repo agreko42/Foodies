@@ -12,15 +12,12 @@ const RegisterAuth = (
   setUserPasswordError
 ) => {
   if (username.trim().length <= 0) {
-    console.log("hier drinnen");
     setUsernameError(true);
     return;
   } else if (userEmail.trim().length <= 0) {
-    console.log("hier drinnen");
     setUserEmailError(true);
     return;
   } else if (userPassword.trim().length <= 0) {
-    console.log("hier drinnen");
     setUserPasswordError(true);
     return;
   }
