@@ -4,32 +4,24 @@ import Footer from "./layout/Footer.jsx";
 import ContentSection from "./components/ContentSection.jsx";
 import { useState } from "react";
 import MenuOptions from "./components/MenuOptions.jsx";
-import { Box } from "@mui/material";
 
 function FreeUserVersion() {
   const [filterBtnForFood, setFilterBtnForFood] = useState("sweet");
 
   return (
-    <>
+    <div>
       <Navbar />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-        }}
-      >
-        <Box>
+      <div className="flex flex-row justify-around items-center">
+        <div>
           <MenuOptions setFilterBtnChange={setFilterBtnForFood} />
-        </Box>
-        <Box>
+        </div>
+        <div>
           <ContentSection filterBtn={filterBtnForFood} />
-        </Box>
-        <Box>for test purposes</Box>
-      </Box>
+        </div>
+        <div>for test purposes</div>
+      </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

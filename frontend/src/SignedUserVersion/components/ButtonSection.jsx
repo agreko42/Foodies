@@ -1,44 +1,27 @@
-import {
-  Button,
-  ButtonGroup,
-  Box,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
-
-const buttonTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#b3e5fc", // Set the primary color to red
-    },
-  },
-});
-
 const ButtonSection = ({ handleActiveComponentChange }) => {
   return (
-    <ThemeProvider theme={buttonTheme}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <ButtonGroup
-          size="large"
-          variant="contained"
-          aria-label="outlined primary button group"
+    <div className="flex flex-col items-center">
+      <div className="flex space-x-4">
+        <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+          Ranking
+        </button>
+        <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+          Wheel
+        </button>
+        <button
+          onClick={() => handleActiveComponentChange("Collection")}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
         >
-          <Button>Ranking</Button>
-          <Button>Wheel</Button>
-          <Button onClick={() => handleActiveComponentChange("Collection")}>
-            Collections
-          </Button>
-          <Button>Friends</Button>
-          <Button>Post</Button>
-        </ButtonGroup>
-      </Box>
-    </ThemeProvider>
+          Collections
+        </button>
+        <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+          Friends
+        </button>
+        <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+          Post
+        </button>
+      </div>
+    </div>
   );
 };
 

@@ -1,11 +1,8 @@
-import { Box } from "@mui/material";
-import React from "react";
-
 const WelcomeSection = () => {
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+    <div className="flex justify-center mt-20">
       Hello People :) Choose your MealType in the menu bar on the left side.
-    </Box>
+    </div>
   );
 };
 

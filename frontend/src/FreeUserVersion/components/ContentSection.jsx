@@ -1,11 +1,10 @@
-import { Box } from "@mui/material";
 import WheelContainer from "./Roulette/WheelContainer.jsx";
 
 const ContentSection = (props) => {
   return (
-    <Box>
+    <div>
       <WheelContainer filterBtn={props.filterBtn} />
-    </Box>
+    </div>
   );
 };
 

@@ -9,19 +9,23 @@ const MenuOptions = (props) => {
   };
 
   return (
-    <Box>
-      <Typography variant="h5" gutterBottom>
-        Choose One
-      </Typography>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Button onClick={() => handleBtnSweet()} variant="outlined">
+    <div>
+      <h5 className="text-xl font-bold mb-4">Choose One</h5>
+      <div className="flex flex-col">
+        <button
+          onClick={() => handleBtnSweet()}
+          className="border border-blue-500 text-blue-500 font-bold py-2 px-4 rounded mb-2"
+        >
           Sweet
-        </Button>
-        <Button onClick={() => handleBtnSevery()} variant="outlined">
+        </button>
+        <button
+          onClick={() => handleBtnSevery()}
+          className="border border-blue-500 text-blue-500 font-bold py-2 px-4 rounded"
+        >
           Severy
-        </Button>
-      </Box>
-    </Box>
+        </button>
+      </div>
+    </div>
   );
 };
 

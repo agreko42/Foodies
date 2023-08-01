@@ -1,12 +1,27 @@
 import api from "../config/api";
 import jwt_decode from "jwt-decode";
 
-const RegisterAuth = (username, userEmail, userPassword, navigate, user) => {
+const RegisterAuth = (
+  username,
+  userEmail,
+  userPassword,
+  navigate,
+  user,
+  setUsernameError,
+  setUserEmailError,
+  setUserPasswordError
+) => {
   if (username.trim().length <= 0) {
+    console.log("hier drinnen");
+    setUsernameError(true);
     return;
   } else if (userEmail.trim().length <= 0) {
+    console.log("hier drinnen");
+    setUserEmailError(true);
     return;
   } else if (userPassword.trim().length <= 0) {
+    console.log("hier drinnen");
+    setUserPasswordError(true);
     return;
   }
 
@@ -15,6 +30,8 @@ const RegisterAuth = (username, userEmail, userPassword, navigate, user) => {
     email: userEmail,
     password: userPassword,
   };
+
+  console.log(userInput);
 
   fetch(api.REGISTER.getUrl, {
     method: api.REGISTER.method,

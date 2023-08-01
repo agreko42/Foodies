@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Wheel } from "react-custom-roulette";
-import { Box, Button } from "@mui/material";
 import ResultBox from "./ResultBox.jsx";
 
 const WheelContainer = (props) => {
@@ -46,7 +45,7 @@ const WheelContainer = (props) => {
   }, [props.filterBtn]);
 
   return (
-    <Box>
+    <div>
       <Wheel
         mustStartSpinning={mustSpin}
         prizeNumber={winningNumber}
@@ -61,7 +60,12 @@ const WheelContainer = (props) => {
         textDistance={75}
         textColors={["#ffffff"]}
       />
-      <Button onClick={() => handleSpinIt()}>Spin It!</Button>
+      <button
+        onClick={() => handleSpinIt()}
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Spin It!
+      </button>
       {currentResult === "" ? (
         ""
       ) : winningNumber === 0 ? (
@@ -72,7 +76,7 @@ const WheelContainer = (props) => {
       ) : (
         <ResultBox name={currentResult.name} imageUrl={currentResult.url} />
       )}
-    </Box>
+    </div>
   );
 };
 

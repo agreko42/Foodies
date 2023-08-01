@@ -4,6 +4,7 @@ import ButtonSection from "./components/ButtonSection";
 import ContentSection from "./components/ContentSection.jsx";
 import Footer from "./layout/Footer";
 import { useNavigate } from "react-router-dom";
+import SignedUserNavbar from "./layout/Navbar.jsx";
 
 function SignedUserVersion(props) {
   const [activeComponent, setActiveComponent] = useState("Landing");
@@ -15,7 +16,7 @@ function SignedUserVersion(props) {
 
   return (
     <>
-      <Navbar user={props.user} setUser={props.setUser} />
+      <SignedUserNavbar user={props.user} setUser={props.setUser} />
       <ButtonSection
         handleActiveComponentChange={handleActiveComponentChange}
         user={props.user}
