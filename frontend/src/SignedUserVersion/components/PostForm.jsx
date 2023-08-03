@@ -1,12 +1,12 @@
 
 import {useState, useEffect} from "react";
 
-const postUserFood = async (postBody) => {
-    //TODO: jwToken im Header, oder Usernamen aus jwt holen und in die url geben
-  const response = await fetch(`http://localhost:8080/recipe/post/a`, {
+const postUserFood = async (postBody, token) => {
+  const response = await fetch(`http://localhost:8080/recipe/post`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+        "Authentication": `Bearer ${JSON.stringify(token)}`
     },
     body: JSON.stringify(postBody),
   });
@@ -21,7 +21,7 @@ const getUnitsForDd = async () => {
     return await response.json();
 };
 
-const PostForm = () => {
+const PostForm = (props) => {
   const [inputs, setInputs] = useState({
     steps: [],
     ingredients: [],
@@ -49,7 +49,7 @@ const PostForm = () => {
             : checked[1] ? "SAVOURY" : ""}`
         }
         console.log(postBody)
-        postUserFood(postBody)
+        postUserFood(postBody, props.user)
             .then( (response) => console.log(response));
     }
     const handleInput = (e) => {

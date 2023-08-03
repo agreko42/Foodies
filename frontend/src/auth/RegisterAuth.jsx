@@ -6,7 +6,7 @@ const RegisterAuth = (
   userEmail,
   userPassword,
   navigate,
-  user,
+  setUser,
   setUsernameError,
   setUserEmailError,
   setUserPasswordError
@@ -48,7 +48,7 @@ const RegisterAuth = (
       const jwt = data.token;
       const decodedToken = jwt_decode(jwt);
       console.log("DecodedToken: ", decodedToken);
-      user(decodedToken);
+      setUser(jwt);
       navigate("/logged-in");
     })
     .catch((err) => console.log(`Hey, there is an ${err}`));

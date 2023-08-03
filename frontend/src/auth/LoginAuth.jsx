@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 const LoginAuth = (
   username,
   userPassword,
-  user,
+  setUser,
   navigate,
   setUsernameError,
   setUserPasswordError
@@ -41,7 +41,7 @@ const LoginAuth = (
       const jwt = data.token;
       const decodedToken = jwt_decode(jwt);
       console.log("DecodedToken: ", decodedToken);
-      user(decodedToken);
+      setUser(jwt);
       navigate("/logged-in");
     })
 

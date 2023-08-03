@@ -21,7 +21,7 @@ function SignedUserVersion(props) {
         handleActiveComponentChange={handleActiveComponentChange}
         user={props.user}
       />
-      <ContentSection activeComponent={activeComponent} />
+      <ContentSection activeComponent={activeComponent} user={props.user}/>
       <Footer />
     </>
   );

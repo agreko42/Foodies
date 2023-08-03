@@ -4,8 +4,8 @@ import RezeptCollection from "./RezeptCollection.jsx";
 const ContentSection = (props) => {
   return (
     <div>
-      {props.activeComponent === "Landing" ? <PostForm /> : ""}
-      {props.activeComponent === "Collection" ? <RezeptCollection /> : ""}
+      {props.activeComponent === "Landing" ? <PostForm user={props.user}/> : ""}
+      {props.activeComponent === "Collection" ? <RezeptCollection user={props.user}/> : ""}
     </div>
   );
 };

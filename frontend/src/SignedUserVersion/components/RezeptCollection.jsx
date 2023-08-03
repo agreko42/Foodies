@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { Card } from "flowbite-react";
 
-const RezeptCollection = () => {
+const RezeptCollection = (props) => {
   const [data, setData] = useState([]);
 
   const fetchRezeptCollection = async () => {
-    const recipeList = await fetch("http://localhost:8080/recipe/user/a");
+    const recipeList = await fetch("http://localhost:8080/recipe/user",{
+        headers: {
+          "Authentication": `Bearer ${JSON.stringify(props.user)}`
+        }}
+    );
     const recipeResult = await recipeList.json();
     return recipeResult;
   };

@@ -4,11 +4,18 @@ import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./FreeUserVersion/components/LoginPage.jsx";
 import RegisterPage from "./FreeUserVersion/components/RegisterPage.jsx";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const App = () => {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+      const token = localStorage.getItem("token");
+      if(token){
+          setUser(token);
+      }
+  }, [] )
 
   console.log(user);
 

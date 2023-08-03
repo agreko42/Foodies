@@ -4,6 +4,7 @@ package com.foodies.backend.recipeLogic;
 
 import com.foodies.backend.recipeLogic.dbConnection.Recipe;
 import com.foodies.backend.recipeLogic.dbConnection.RecipeDTO;
+import com.foodies.backend.security.config.JwtService;
 import com.foodies.backend.security.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.List;
 public class RecipeEndpoint {
 
     private final RecipeEndpointService recipeService;
+    private final JwtService jwtService;
 
     @GetMapping("/{type}")
     public List<RecipeDTO> getRecipesByFlavourType(@PathVariable String type){
@@ -43,14 +45,18 @@ public class RecipeEndpoint {
         return ResponseEntity.ok(recipe);
     }
 
-    @GetMapping("/user/{username}")
-    public List<RecipeDTO> findRecipesByUser_Username(@PathVariable String username){ //String username für Frontend wegen token
+    @GetMapping("/user")
+    public List<RecipeDTO> findRecipesByUser_Username(@RequestHeader String authentication){
+        String pureToken = authentication.trim().substring(8, authentication.length()-1);
+        String username = jwtService.extractUsername(pureToken);
         return recipeService.findRecipesByUser_Username(username);
     }
 
 
-    @PostMapping("/post/{username}")
-    public ResponseEntity<RecipeDTO> postRecipe(@RequestBody RecipeDTO recipeDTO, @PathVariable String username) {
+    @PostMapping("/post")
+    public ResponseEntity<RecipeDTO> postRecipe(@RequestBody RecipeDTO recipeDTO, @RequestHeader String authentication) {
+        String pureToken = authentication.trim().substring(8, authentication.length()-1);
+        String username = jwtService.extractUsername(pureToken);
         RecipeDTO savedRecipe = recipeService.postRecipe(recipeDTO, username);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedRecipe);
     }
