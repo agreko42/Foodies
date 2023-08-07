@@ -37,7 +37,7 @@ public class RecipeEndpoint {
         return ResponseEntity.ok(recipes);
     }
 
-    @GetMapping("/recipe/{id}")
+    @GetMapping("/find/{id}")
     public ResponseEntity<RecipeDTO> getRecipe(@PathVariable Long id) {
         RecipeDTO recipe = recipeService.getRecipe(id);
         return ResponseEntity.ok(recipe);
@@ -53,6 +53,17 @@ public class RecipeEndpoint {
     public ResponseEntity<RecipeDTO> postRecipe(@RequestBody RecipeDTO recipeDTO, @PathVariable String username) {
         RecipeDTO savedRecipe = recipeService.postRecipe(recipeDTO, username);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedRecipe);
+    }
+
+    @PutMapping("/update/{id}")
+    public RecipeDTO updateRecipe(@PathVariable Long id, @RequestBody RecipeDTO recipeDTO){
+        return recipeService.updateRecipe(id, recipeDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteRecipe(@PathVariable Long id) {
+        recipeService.deleteRecipe(id);
+        return ResponseEntity.ok().build();
     }
 
 }
