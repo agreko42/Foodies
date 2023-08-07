@@ -4,10 +4,11 @@ import { Card } from "flowbite-react";
 const RezeptCollection = (props) => {
   const [data, setData] = useState([]);
 
-  const fetchRezeptCollection = async () => {
+  const fetchRezeptCollection = async (token) => {
+    const jwToken = JSON.stringify(token);
     const recipeList = await fetch("http://localhost:8080/recipe/user",{
         headers: {
-          "Authentication": `Bearer ${JSON.stringify(props.user)}`
+          "Authorize": `Bearer ${jwToken}`
         }}
     );
     const recipeResult = await recipeList.json();
@@ -15,7 +16,7 @@ const RezeptCollection = (props) => {
   };
 
   useEffect(() => {
-    fetchRezeptCollection().then((data) => {
+    fetchRezeptCollection(props.user).then((data) => {
       return setData(data);
     });
   }, []);

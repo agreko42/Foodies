@@ -2,21 +2,24 @@
 import {useState, useEffect} from "react";
 
 const postUserFood = async (postBody, token) => {
+    const jwToken = JSON.stringify(token);
+    const authString = `Bearer ${token}`;
   const response = await fetch(`http://localhost:8080/recipe/post`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-        "Authentication": `Bearer ${JSON.stringify(token)}`
+        "Authorization": authString,
+        "Content-Type": "application/json"
     },
     body: JSON.stringify(postBody),
   });
+
   return await response.json();
 };
 
 const getUnitsForDd = async () => {
     const response = await fetch(`http://localhost:8080/recipe/units`, {
         method: "GET",
-        headers: {},
+        headers: {"Content-Type": "application/json"},
     })
     return await response.json();
 };
@@ -49,6 +52,7 @@ const PostForm = (props) => {
             : checked[1] ? "SAVOURY" : ""}`
         }
         console.log(postBody)
+        console.log(props.user)
         postUserFood(postBody, props.user)
             .then( (response) => console.log(response));
     }

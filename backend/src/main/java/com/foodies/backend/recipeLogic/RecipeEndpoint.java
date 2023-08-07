@@ -46,16 +46,17 @@ public class RecipeEndpoint {
     }
 
     @GetMapping("/user")
-    public List<RecipeDTO> findRecipesByUser_Username(@RequestHeader String authentication){
-        String pureToken = authentication.trim().substring(8, authentication.length()-1);
+    public List<RecipeDTO> findRecipesByUser_Username(@RequestHeader String authorization){
+        String pureToken = authorization.substring(7, authorization.length()-1);
         String username = jwtService.extractUsername(pureToken);
         return recipeService.findRecipesByUser_Username(username);
     }
 
 
     @PostMapping("/post")
-    public ResponseEntity<RecipeDTO> postRecipe(@RequestBody RecipeDTO recipeDTO, @RequestHeader String authentication) {
-        String pureToken = authentication.trim().substring(8, authentication.length()-1);
+    public ResponseEntity<RecipeDTO> postRecipe(@RequestBody RecipeDTO recipeDTO, @RequestHeader String authorization) {
+
+        String pureToken = authorization.substring(7, authorization.length()-1);
         String username = jwtService.extractUsername(pureToken);
         RecipeDTO savedRecipe = recipeService.postRecipe(recipeDTO, username);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedRecipe);
