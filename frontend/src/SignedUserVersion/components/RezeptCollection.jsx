@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Card } from "flowbite-react";
-
+import { Card, Button } from "flowbite-react";
 
 const fetchRezeptCollection = async (token) => {
   const authString = `Bearer ${token}`;
-  console.log(authString)
+  console.log(authString);
   const recipeList = await fetch("http://localhost:8080/recipe/user", {
     headers: {
       Authorization: authString,
@@ -16,12 +15,33 @@ const fetchRezeptCollection = async (token) => {
 
 const RezeptCollection = (props) => {
   const [data, setData] = useState([]);
+  const [fetchTriggerData, setFetchTriggerData] = useState(0);
+
+  const handleDelete = (recipeId) => {
+    fetch(`http://localhost:8080/recipe/${recipeId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${props.user}`,
+      },
+      credentials: "include",
+    })
+      .then((res) => {
+        console.log(res);
+        setFetchTriggerData(fetchTriggerData + 1);
+      })
+      .catch((err) => console.error(err));
+    console.log(`Deleting recipe with ID: ${recipeId}`);
+  };
+
+  const handleEdit = (recipeId) => {
+    console.log(`Editing recipe with ID: ${recipeId}`);
+  };
 
   useEffect(() => {
-    fetchRezeptCollection(props.user)
-        .then((data) => { setData(data);}
-        );
-  }, []);
+    fetchRezeptCollection(props.user).then((data) => {
+      setData(data);
+    });
+  }, [fetchTriggerData]);
 
   console.log(data);
 
@@ -36,6 +56,15 @@ const RezeptCollection = (props) => {
             <p className="font-normal text-gray-700 dark:text-gray-400">
               {recipe.flavourType}
             </p>
+            <Button
+              onClick={() => handleDelete(recipe.id)}
+              className="mt-2 mr-2"
+            >
+              Delete
+            </Button>
+            <Button onClick={() => handleEdit(recipe.id)} className="mt-2">
+              Edit
+            </Button>
           </Card>
         );
       })}
