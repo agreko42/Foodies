@@ -1,27 +1,26 @@
-
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 const postUserFood = async (postBody, token) => {
-    const jwToken = JSON.stringify(token);
     const authString = `Bearer ${token}`;
   const response = await fetch(`http://localhost:8080/recipe/post`, {
     method: "POST",
     headers: {
-        "Authorization": authString,
+        Authorization: authString,
         "Content-Type": "application/json"
     },
     body: JSON.stringify(postBody),
+    credentials: "include",
   });
 
   return await response.json();
 };
 
 const getUnitsForDd = async () => {
-    const response = await fetch(`http://localhost:8080/recipe/units`, {
-        method: "GET",
-        headers: {"Content-Type": "application/json"},
-    })
-    return await response.json();
+  const response = await fetch(`http://localhost:8080/recipe/units`, {
+    method: "GET",
+    headers: {},
+  });
+  return await response.json();
 };
 
 const PostForm = (props) => {
@@ -36,20 +35,23 @@ const PostForm = (props) => {
   const [checked, setChecked] = useState([true, false]);
   const [DdUnits, setDdUnits] = useState(["", ""]);
 
-    useEffect( () => {
-        getUnitsForDd(DdUnits, setDdUnits)
-            .then(res => setDdUnits(res))
-    }, [])
+  useEffect(() => {
+    getUnitsForDd(DdUnits, setDdUnits).then((res) => setDdUnits(res));
+  }, []);
+
 
     const handleSubmit = () =>{
-        let cleanIngredientInput = inputs.ingredients.map(ingredient => ({...ingredient, "unit": ingredient.unit.toUpperCase()}));
+        let cleanIngredientInput = inputs.ingredients.map( ingredient => ({
+          ...ingredient,
+          "unit": ingredient.unit.toUpperCase()
+        }));
         let postBody = {
-            "name": `${inputs.name}`,
-            "ingredients": cleanIngredientInput,
-            "steps" : inputs.steps,
-            "comments" : inputs.comments,
-            "flavourType" : `${checked[0] ? "SWEET"
-            : checked[1] ? "SAVOURY" : ""}`
+            name: `${inputs.name}`,
+            ingredients: cleanIngredientInput,
+            steps : inputs.steps,
+            comments : inputs.comments,
+            flavourType : `${checked[0] ? "SWEET"
+                        : checked[1] ? "SAVOURY" : ""}`
         }
         console.log(postBody)
         console.log(props.user)
@@ -96,124 +98,107 @@ const PostForm = (props) => {
     setChecked([false, true]);
   };
 
-    return (
-        <>
-            <form /*onSubmit={handleSubmit}*/>
+  return (
+    <>
+      <form /*onSubmit={handleSubmit}*/>
+        <label>
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={inputs.name || ""}
+            onChange={handleInput}
+          />
+        </label>
 
-                <label>Name:
-                    <input
-                        type="text"
-                        name="name"
-                        value={inputs.name || ""}
-                        onChange = {handleInput}
-                    />
-                </label>
+        <ol>
+          {inputs.ingredients.map((ingredient, index) => (
+            <li key={index}>
+              {ingredient.amount} {ingredient.unit} {ingredient.name}
+            </li>
+          ))}
+        </ol>
+        <label>
+          Ingredients:
+          <input
+            type="number"
+            name="amount"
+            value={ingredientInput.amount || ""}
+            onChange={handleIngredientInput}
+          />
+          <select
+            onChange={handleIngredientInput}
+            name="unit"
+            value={ingredientInput.unit || ""}
+          >
+            {DdUnits.map((unit, index) => (
+              <option key={index}>{unit.toLowerCase()}</option>
+            ))}
+          </select>
+          <input
+            type="text"
+            name="name"
+            value={ingredientInput.name || ""}
+            onChange={handleIngredientInput}
+          />
+          <input type="button" value={"+"} onClick={addIngredientLine} />
+        </label>
 
-                <ol>
-                    {
-                        inputs.ingredients.map( (ingredient, index) =>
-                            <li key={index}>
-                                {ingredient.amount} {ingredient.unit} {ingredient.name}
-                            </li> )
-                    }
-                </ol>
-                <label>Ingredients:
-                    <input
-                        type="number"
-                        name="amount"
-                        value={ingredientInput.amount || ""}
-                        onChange = {handleIngredientInput}
-                    />
-                    <select
-                        onChange={handleIngredientInput}
-                        name="unit"
-                        value={ingredientInput.unit || ""}>
-                        {
-                            DdUnits.map( (unit, index) =>
-                            <option key={index}>{unit.toLowerCase()}</option>
-                            )
-                        }
-                    </select>
-                    <input
-                        type="text"
-                        name="name"
-                        value={ingredientInput.name || ""}
-                        onChange = {handleIngredientInput}
-                    />
-                    <input
-                        type="button"
-                        value={"+"}
-                        onClick={addIngredientLine}
-                    />
-                </label>
+        <ol>
+          {inputs.steps.map((step, index) => (
+            <li key={index}>{step}</li>
+          ))}
+        </ol>
+        <label>
+          Next Step:
+          <input
+            type="text"
+            name="steps"
+            value={stepInput || ""}
+            onChange={handleStepInput}
+          />
+          <input type="button" value={"+"} onClick={addStepLine} />
+        </label>
 
-                <ol>
-                    {
-                        inputs.steps.map( (step, index) =>
-                            <li key={index}>
-                                {step}
-                            </li> )
-                    }
-                </ol>
-                <label>Next Step:
-                    <input
-                        type="text"
-                        name="steps"
-                        value={stepInput || ""}
-                        onChange = {handleStepInput}
-                    />
-                    <input
-                        type="button"
-                        value={"+"}
-                        onClick={addStepLine}
-                    />
-                </label>
+        <ol>
+          {inputs.comments.map((comment, index) => (
+            <li key={index}>{comment}</li>
+          ))}
+        </ol>
+        <label>
+          Comments:
+          <input
+            type="text"
+            name="comments"
+            value={commentInput || ""}
+            onChange={handleCommentInput}
+          />
+          <input type="button" value={"+"} onClick={addCommentLine} />
+        </label>
 
-                <ol>
-                    {
-                        inputs.comments.map( (comment, index) =>
-                            <li key={index}>
-                                {comment}
-                            </li> )
-                    }
-                </ol>
-                <label>Comments:
-                    <input
-                        type="text"
-                        name="comments"
-                        value={commentInput || ""}
-                        onChange = {handleCommentInput}
-                    />
-                    <input
-                        type="button"
-                        value={"+"}
-                        onClick={addCommentLine}
-                    />
-                </label>
+        <label>
+          Sweet:
+          <input
+            type="checkbox"
+            onChange={handleSweet}
+            checked={checked[0]}
+            value={"Sweet"}
+          />
+        </label>
+        <label>
+          Savoury:
+          <input
+            type="checkbox"
+            onChange={handleSavoury}
+            checked={checked[1]}
+            value={"Savoury"}
+          />
+        </label>
 
-                <label>Sweet:
-                    <input type="checkbox"
-                           onChange={handleSweet}
-                           checked={checked[0]}
-                           value={"Sweet"}/>
-                </label>
-                <label>Savoury:
-                    <input type="checkbox"
-                           onChange={handleSavoury}
-                           checked={checked[1]}
-                           value={"Savoury"}/>
-                </label>
+        <input type="button" onClick={handleSubmit} value={"Submit"} />
+      </form>
 
-
-
-                <input type="button"
-                onClick={handleSubmit}
-                value={"Submit"}/>
-
-            </form>
-
-
-            {/*}
+      {/*}
                 <FormGroup>
                     <Input placeholder={"Enter a name!"} value={name} onChange={(e) => setName(e.target.value)}/>
                     <Input placeholder={"Enter an img-Link!"} value={imgLink} onChange={(e) => setImgLink(e.target.value)}/>

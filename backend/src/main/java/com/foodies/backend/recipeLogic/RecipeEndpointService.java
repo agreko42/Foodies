@@ -3,15 +3,11 @@ package com.foodies.backend.recipeLogic;
 import com.foodies.backend.recipeLogic.dbConnection.*;
 import com.foodies.backend.security.user.User;
 import com.foodies.backend.security.user.UserRepository;
-import jakarta.persistence.GeneratedValue;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -91,6 +87,29 @@ public class RecipeEndpointService {
         return convertToDTO(savedRecipe);
     }
 
+    public RecipeDTO updateRecipe(Long id, RecipeDTO recipeDTO) {
+        Recipe recipe = recipeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Recipe with id " + id + " not found"));
+
+        recipe.setName(recipeDTO.getName());
+        recipe.setSteps(recipeDTO.getSteps());
+        recipe.setComments(recipeDTO.getComments());
+        recipe.setFlavourType(recipeDTO.getFlavourType());
+
+        Set<Ingredient> updatedIngredients = recipeDTO.getIngredients().stream()
+                .map(this::convertDtoToIngredient)
+                .collect(Collectors.toSet());
+
+        recipe.setIngredients(updatedIngredients);
+
+        Recipe updatedRecipe = recipeRepository.save(recipe);
+        return convertToDTO(updatedRecipe);
+    }
+
+    public void deleteRecipe(Long id) {
+        recipeRepository.deleteById(id);
+    }
+
     private Recipe convertToRecipeEntity(RecipeDTO recipeDTO, String username) {
         Recipe recipe = new Recipe();
         if(recipeDTO.getId() != null) {
@@ -122,4 +141,7 @@ public class RecipeEndpointService {
 
         return ingredient;
     }
+
+
+
 }
