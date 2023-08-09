@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const postUserFood = async (postBody, token) => {
-    const authString = `Bearer ${token}`;
+  const authString = `Bearer ${token}`;
   const response = await fetch(`http://localhost:8080/recipe/post`, {
     method: "POST",
     headers: {

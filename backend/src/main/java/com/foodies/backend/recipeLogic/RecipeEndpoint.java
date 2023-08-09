@@ -2,14 +2,11 @@ package com.foodies.backend.recipeLogic;
 
 
 
-import com.foodies.backend.recipeLogic.dbConnection.Recipe;
 import com.foodies.backend.recipeLogic.dbConnection.RecipeDTO;
 import com.foodies.backend.security.config.JwtService;
-import com.foodies.backend.security.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,7 +44,8 @@ public class RecipeEndpoint {
 
     @GetMapping("/user")
     public List<RecipeDTO> findRecipesByUser_Username(@RequestHeader String authorization){
-        String pureToken = authorization.substring(7, authorization.length()-1);
+        System.out.println("request arrives");
+        String pureToken = authorization.substring(7);
         String username = jwtService.extractUsername(pureToken);
         return recipeService.findRecipesByUser_Username(username);
     }
@@ -56,7 +54,7 @@ public class RecipeEndpoint {
     @PostMapping("/post")
     public ResponseEntity<RecipeDTO> postRecipe(@RequestBody RecipeDTO recipeDTO, @RequestHeader String authorization) {
 
-        String pureToken = authorization.substring(7, authorization.length()-1);
+        String pureToken = authorization.substring(7);
         String username = jwtService.extractUsername(pureToken);
         RecipeDTO savedRecipe = recipeService.postRecipe(recipeDTO, username);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedRecipe);

@@ -1,5 +1,4 @@
 import api from "../config/api";
-import jwt_decode from "jwt-decode";
 
 const RegisterAuth = (
   username,
@@ -46,8 +45,6 @@ const RegisterAuth = (
       localStorage.setItem("token", data.token); //oder sessionStorage.setItem.....
       console.log("Token saved in localStorage");
       const jwt = data.token;
-      const decodedToken = jwt_decode(jwt);
-      console.log("DecodedToken: ", decodedToken);
       setUser(jwt);
       navigate("/logged-in");
     })
