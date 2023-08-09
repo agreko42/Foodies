@@ -1,15 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  IconButton,
-  InputAdornment,
-  TextField,
-} from "@mui/material"; //TODO: change to tailwind
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import jwt_decode from "jwt-decode";
 import RegisterAuth from "../../auth/RegisterAuth";
@@ -24,10 +14,6 @@ const RegisterPage = (props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
-
-  const validateString = (string) => {
-    return !(string == null || string.length <= 0);
-  };
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
