@@ -1,8 +1,11 @@
-package com.foodies.backend.recipeLogic;
+package com.foodies.backend.endpoint;
 
 
 
-import com.foodies.backend.recipeLogic.dbConnection.RecipeDTO;
+import com.foodies.backend.DTO.RecipeResponse;
+import com.foodies.backend.service.RecipeEndpointService;
+import com.foodies.backend.DTO.RecipeRequest;
+import com.foodies.backend.data.UnitEnum;
 import com.foodies.backend.security.config.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +24,7 @@ public class RecipeEndpoint {
     private final JwtService jwtService;
 
     @GetMapping("/{type}")
-    public List<RecipeDTO> getRecipesByFlavourType(@PathVariable String type){
+    public List<RecipeResponse> getRecipesByFlavourType(@PathVariable String type){
             return recipeService.getRecipesByFlavourType(type);
     }
 
@@ -31,19 +34,19 @@ public class RecipeEndpoint {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<RecipeDTO>> getAllRecipes() {
-        List<RecipeDTO> recipes = recipeService.getAllRecipes();
+    public ResponseEntity<List<RecipeResponse>> getAllRecipes() {
+        List<RecipeResponse > recipes = recipeService.getAllRecipes();
         return ResponseEntity.ok(recipes);
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<RecipeDTO> getRecipe(@PathVariable Long id) {
-        RecipeDTO recipe = recipeService.getRecipe(id);
+    public ResponseEntity<RecipeResponse> getRecipe(@PathVariable Long id) {
+        RecipeResponse recipe = recipeService.getRecipe(id);
         return ResponseEntity.ok(recipe);
     }
 
     @GetMapping("/user")
-    public List<RecipeDTO> findRecipesByUser_Username(@RequestHeader String authorization){
+    public List<RecipeResponse> findRecipesByUser_Username(@RequestHeader String authorization){
         System.out.println("request arrives");
         String pureToken = authorization.substring(7);
         String username = jwtService.extractUsername(pureToken);
@@ -52,17 +55,17 @@ public class RecipeEndpoint {
 
 
     @PostMapping("/post")
-    public ResponseEntity<RecipeDTO> postRecipe(@RequestBody RecipeDTO recipeDTO, @RequestHeader String authorization) {
+    public ResponseEntity<RecipeResponse> postRecipe(@RequestBody RecipeRequest recipeRequest, @RequestHeader String authorization) {
 
         String pureToken = authorization.substring(7);
         String username = jwtService.extractUsername(pureToken);
-        RecipeDTO savedRecipe = recipeService.postRecipe(recipeDTO, username);
+        RecipeResponse savedRecipe = recipeService.postRecipe(recipeRequest, username);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedRecipe);
     }
 
     @PutMapping("/update/{id}")
-    public RecipeDTO updateRecipe(@PathVariable Long id, @RequestBody RecipeDTO recipeDTO){
-        return recipeService.updateRecipe(id, recipeDTO);
+    public RecipeResponse updateRecipe(@PathVariable Long id, @RequestBody RecipeRequest recipeRequest){
+        return recipeService.updateRecipe(id, recipeRequest);
     }
 
     @DeleteMapping("/{id}")

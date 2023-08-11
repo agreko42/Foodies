@@ -1,6 +1,12 @@
-package com.foodies.backend.recipeLogic;
+package com.foodies.backend.service;
 
-import com.foodies.backend.recipeLogic.dbConnection.*;
+import com.foodies.backend.DTO.IngredientDTO;
+import com.foodies.backend.DTO.RecipeRequest;
+import com.foodies.backend.DTO.RecipeResponse;
+import com.foodies.backend.data.FlavourType;
+import com.foodies.backend.data.Ingredient;
+import com.foodies.backend.data.Recipe;
+import com.foodies.backend.data.RecipeRepository;
 import com.foodies.backend.security.user.User;
 import com.foodies.backend.security.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +23,8 @@ public class RecipeEndpointService {
     private final UserRepository userRepository;
 
 
-    public List<RecipeDTO> getRecipesByFlavourType(String type) {
+
+    public List<RecipeResponse> getRecipesByFlavourType(String type) {
         String typeString = type.toLowerCase();
         String case1 = FlavourType.SWEET.getType();
         String case2 = FlavourType.SAVOURY.getType();
@@ -36,34 +43,34 @@ public class RecipeEndpointService {
         return recipes.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public RecipeDTO getRecipe(Long id){
+    public RecipeResponse getRecipe(Long id){
         Recipe recipe = recipeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Recipe could not be found"));
         return convertToDTO(recipe);
     }
 
-    public List<RecipeDTO> findRecipesByUserId(Long userId){
+    public List<RecipeResponse > findRecipesByUserId(Long userId){
         List<Recipe> recipes = recipeRepository.findRecipesByUserId(userId);
         return recipes.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public List<RecipeDTO> findRecipesByUser_Username(String username){
+    public List<RecipeResponse> findRecipesByUser_Username(String username){
         List<Recipe> recipes = recipeRepository.findRecipesByUser_Username(username);
         System.out.println("recipes: " + recipes);
         return recipes.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    private RecipeDTO convertToDTO(Recipe recipe) {
-        RecipeDTO recipeDTO = new RecipeDTO();
-        recipeDTO.setId(recipe.getId());
-        recipeDTO.setName(recipe.getName());
-        recipeDTO.setSteps(recipe.getSteps());
-        recipeDTO.setComments(recipe.getComments());
-        recipeDTO.setFlavourType(recipe.getFlavourType());
-        recipeDTO.setIngredients(recipe.getIngredients().stream().map(this::convertIngredientToDto).collect(Collectors.toSet()));
-        recipeDTO.setUserName(recipe.getUser().getUsername());
+    private RecipeResponse convertToDTO(Recipe recipe) {
+        RecipeResponse recipeResponse = new RecipeResponse();
+        recipeResponse .setId(recipe.getId());
+        recipeResponse .setName(recipe.getName());
+        recipeResponse .setSteps(recipe.getSteps());
+        recipeResponse .setComments(recipe.getComments());
+        recipeResponse .setFlavourType(recipe.getFlavourType());
+        recipeResponse .setIngredients(recipe.getIngredients().stream().map(this::convertIngredientToDto).collect(Collectors.toSet()));
+        recipeResponse .setUserName(recipe.getUser().getUsername());
 
-        return recipeDTO;
+        return recipeResponse ;
     }
 
     private IngredientDTO convertIngredientToDto(Ingredient ingredient) {
@@ -76,27 +83,27 @@ public class RecipeEndpointService {
         return ingredientDTO;
     }
 
-    public List<RecipeDTO> getAllRecipes() {
+    public List<RecipeResponse> getAllRecipes() {
         List<Recipe> recipes = recipeRepository.findAll();
         return recipes.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public RecipeDTO postRecipe(RecipeDTO recipeDTO, String username) {
-        Recipe recipe = convertToRecipeEntity(recipeDTO, username);
+    public RecipeResponse postRecipe(RecipeRequest recipeRequest, String username) {
+        Recipe recipe = convertToRecipeEntity(recipeRequest, username);
         Recipe savedRecipe = recipeRepository.save(recipe);
         return convertToDTO(savedRecipe);
     }
 
-    public RecipeDTO updateRecipe(Long id, RecipeDTO recipeDTO) {
+    public RecipeResponse updateRecipe(Long id, RecipeRequest recipeRequest) {
         Recipe recipe = recipeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Recipe with id " + id + " not found"));
 
-        recipe.setName(recipeDTO.getName());
-        recipe.setSteps(recipeDTO.getSteps());
-        recipe.setComments(recipeDTO.getComments());
-        recipe.setFlavourType(recipeDTO.getFlavourType());
+        recipe.setName(recipeRequest.getName());
+        recipe.setSteps(recipeRequest.getSteps());
+        recipe.setComments(recipeRequest.getComments());
+        recipe.setFlavourType(recipeRequest.getFlavourType());
 
-        Set<Ingredient> updatedIngredients = recipeDTO.getIngredients().stream()
+        Set<Ingredient> updatedIngredients = recipeRequest.getIngredients().stream()
                 .map(this::convertDtoToIngredient)
                 .collect(Collectors.toSet());
 
@@ -110,16 +117,16 @@ public class RecipeEndpointService {
         recipeRepository.deleteById(id);
     }
 
-    private Recipe convertToRecipeEntity(RecipeDTO recipeDTO, String username) {
+    private Recipe convertToRecipeEntity(RecipeRequest recipeRequest, String username) {
         Recipe recipe = new Recipe();
-        if(recipeDTO.getId() != null) {
-            recipe.setId(recipeDTO.getId());
+        if(recipeRequest.getId() != null) {
+            recipe.setId(recipeRequest.getId());
         }
-        recipe.setName(recipeDTO.getName());
-        recipe.setSteps(recipeDTO.getSteps());
-        recipe.setComments(recipeDTO.getComments());
-        recipe.setFlavourType(recipeDTO.getFlavourType());
-        recipe.setIngredients(recipeDTO.getIngredients().stream()
+        recipe.setName(recipeRequest.getName());
+        recipe.setSteps(recipeRequest.getSteps());
+        recipe.setComments(recipeRequest.getComments());
+        recipe.setFlavourType(recipeRequest.getFlavourType());
+        recipe.setIngredients(recipeRequest.getIngredients().stream()
                 .map(this::convertDtoToIngredient)
                 .collect(Collectors.toSet()));
         User user = userRepository.findByUsername(username)

@@ -1,7 +1,5 @@
-package com.foodies.backend.recipeLogic.dbConnection;
+package com.foodies.backend.data;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.foodies.backend.recipeLogic.FlavourType;
 import com.foodies.backend.security.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Entity

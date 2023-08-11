@@ -1,6 +1,6 @@
 package com.foodies.backend.security.user;
 
-import com.foodies.backend.recipeLogic.dbConnection.Recipe;
+import com.foodies.backend.data.Recipe;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

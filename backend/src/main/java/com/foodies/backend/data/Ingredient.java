@@ -1,8 +1,5 @@
-package com.foodies.backend.recipeLogic.dbConnection;
+package com.foodies.backend.data;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.foodies.backend.recipeLogic.UnitEnum;
-import com.foodies.backend.recipeLogic.dbConnection.Recipe;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

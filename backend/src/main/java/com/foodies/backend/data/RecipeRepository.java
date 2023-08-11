@@ -1,7 +1,5 @@
-package com.foodies.backend.recipeLogic.dbConnection;
+package com.foodies.backend.data;
 
-import com.foodies.backend.recipeLogic.FlavourType;
-import com.foodies.backend.security.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
