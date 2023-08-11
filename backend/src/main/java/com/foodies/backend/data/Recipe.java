@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +25,7 @@ public class Recipe {
     @ElementCollection
     List<String> comments;
     FlavourType flavourType;
+    LocalDateTime timestamp;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "recipe_ingredients",
@@ -58,7 +60,6 @@ public class Recipe {
         this.name = name;
     }
 
-//TODO: same structure as for recipes (interface, entity etc.) but for ingredients, then integrate both into endpoints
     public List<String> getSteps() {
         return steps;
     }
@@ -89,5 +90,13 @@ public class Recipe {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }

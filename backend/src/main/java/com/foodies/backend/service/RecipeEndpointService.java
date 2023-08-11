@@ -10,8 +10,10 @@ import com.foodies.backend.data.RecipeRepository;
 import com.foodies.backend.security.user.User;
 import com.foodies.backend.security.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -69,8 +71,9 @@ public class RecipeEndpointService {
         recipeResponse .setFlavourType(recipe.getFlavourType());
         recipeResponse .setIngredients(recipe.getIngredients().stream().map(this::convertIngredientToDto).collect(Collectors.toSet()));
         recipeResponse .setUserName(recipe.getUser().getUsername());
+        recipeResponse .setPostedOn(recipe.getTimestamp());
 
-        return recipeResponse ;
+        return recipeResponse;
     }
 
     private IngredientDTO convertIngredientToDto(Ingredient ingredient) {
@@ -90,6 +93,7 @@ public class RecipeEndpointService {
 
     public RecipeResponse postRecipe(RecipeRequest recipeRequest, String username) {
         Recipe recipe = convertToRecipeEntity(recipeRequest, username);
+        recipe.setTimestamp(LocalDateTime.now());
         Recipe savedRecipe = recipeRepository.save(recipe);
         return convertToDTO(savedRecipe);
     }

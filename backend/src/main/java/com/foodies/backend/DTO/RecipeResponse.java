@@ -3,6 +3,7 @@ package com.foodies.backend.DTO;
 
 import com.foodies.backend.data.FlavourType;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -15,8 +16,9 @@ public class RecipeResponse {
     private List<String> comments;
     private FlavourType flavourType;
     private Set<IngredientDTO> ingredients;
+    private LocalDateTime postedOn;
 
-    public RecipeResponse(Long id, String userName, String name, List<String> steps, List<String> comments, FlavourType flavourType, Set<IngredientDTO> ingredients) {
+    public RecipeResponse(Long id, String userName, String name, List<String> steps, List<String> comments, FlavourType flavourType, Set<IngredientDTO> ingredients, LocalDateTime postedOn) {
         this.id = id;
         this.userName = userName;
         this.name = name;
@@ -24,6 +26,7 @@ public class RecipeResponse {
         this.comments = comments;
         this.flavourType = flavourType;
         this.ingredients = ingredients;
+        this.postedOn = postedOn;
     }
 
     public RecipeResponse() {
@@ -83,5 +86,13 @@ public class RecipeResponse {
 
     public void setIngredients(Set<IngredientDTO> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public LocalDateTime getPostedOn() {
+        return postedOn;
+    }
+
+    public void setPostedOn(LocalDateTime postedOn) {
+        this.postedOn = postedOn;
     }
 }
