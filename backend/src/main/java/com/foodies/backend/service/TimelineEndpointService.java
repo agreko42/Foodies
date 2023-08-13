@@ -1,12 +1,14 @@
 package com.foodies.backend.service;
 
 import com.foodies.backend.DTO.RecipeResponse;
+import com.foodies.backend.data.Recipe;
 import com.foodies.backend.data.RecipeRepository;
 import com.foodies.backend.security.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,14 +21,23 @@ public class TimelineEndpointService {
     private final RecipeRepository recipeRepository;
     private final DtoService dtoService;
     public List<RecipeResponse> getTimelineForUser(String username) {
-        return userRepository.findByUsername(username).get().getUserFollowing()
+        List<Recipe> followedUserRecipes = new ArrayList<>(userRepository.findByUsername(username).get().getUserFollowing()
                 .stream()
                 .flatMap( user ->
                         recipeRepository.findRecipesByUser_Username(user.getUsername())
                                 .stream())
+                .toList());
+
+        List<Recipe> ownedRecipes = recipeRepository.findRecipesByUser_Username(username);
+
+        followedUserRecipes.addAll(ownedRecipes);
+
+        return followedUserRecipes.stream()
                 .map(dtoService::convertRecipeToRecipeResponse)
                 .sorted(Comparator.comparing(RecipeResponse::getPostedOn))
+                .limit(100)
                 .toList();
+
 
     }
 }

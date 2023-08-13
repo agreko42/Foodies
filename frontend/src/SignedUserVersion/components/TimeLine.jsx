@@ -1,5 +1,7 @@
 import {useState, useEffect} from "react";
 import TimelineCard from "./TimelineCard.jsx";
+
+
 const fetchTimeline = async (token) => {
     const authString = `Bearer ${token}`;
     const response = await fetch(`http://localhost:8080/timeline`, {
@@ -14,14 +16,17 @@ const fetchTimeline = async (token) => {
 };
 
 
-const TimeLine = (props) => {
+function TimeLine(props) {
 
     const [timelineData, setTimelineData] = useState([]);
 
     useEffect( () => {
-        fetchTimeline(props.user)
-            .then( data => setTimelineData(data))
-    }, [])
+        if(props.user !== null) {
+            console.log("fetching timeline, token:" + props.user);
+            fetchTimeline(props.user)
+                .then(data => setTimelineData(data))
+        }
+    }, [props.user])
 
     console.log(timelineData);
 
