@@ -5,7 +5,7 @@ import com.foodies.backend.data.Menu;
 import com.foodies.backend.data.MenuType;
 import com.foodies.backend.logic.MealChooser;
 import com.foodies.backend.logic.RandomNumberGenerator;
-import com.foodies.backend.logic.Service;
+import com.foodies.backend.logic.RandomizerService;
 import com.foodies.backend.service.FoodListEndpointService;
 import com.foodies.backend.service.FoodListStorage;
 import com.foodies.backend.service.FoodListStorageService;
@@ -41,7 +41,7 @@ public class BeansConfiguration {
 
     @Bean
     MealChooser mealChooserLoader() {
-        return new MealChooser(foodListStorageService(), new Service(randomNumberGenerator()), randomNumberGenerator());
+        return new MealChooser(foodListStorageService(), new RandomizerService(randomNumberGenerator()), randomNumberGenerator());
     }
 
     @Bean

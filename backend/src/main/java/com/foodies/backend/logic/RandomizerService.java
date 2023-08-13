@@ -4,11 +4,11 @@ import com.foodies.backend.data.Dish;
 
 import java.util.List;
 
-public class Service {
+public class RandomizerService {
 
     private final RandomNumberGenerator randomNumberGenerator;
 
-    public Service(RandomNumberGenerator randomNumberGenerator) {
+    public RandomizerService(RandomNumberGenerator randomNumberGenerator) {
         this.randomNumberGenerator = randomNumberGenerator;
     }
 
