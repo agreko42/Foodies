@@ -17,7 +17,9 @@ const ButtonSection = ({ handleActiveComponentChange }) => {
         <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
           Friends
         </button>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+        <button
+            onClick={() => handleActiveComponentChange("Post")}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
           Post
         </button>
       </div>
