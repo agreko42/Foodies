@@ -5,10 +5,10 @@ import com.foodies.backend.service.FoodListStorageService;
 
 public class MealChooser {
     private FoodListStorageService foodlists;
-    private Service services;
+    private RandomizerService services;
     private RandomNumberGenerator randomNumberGenerator;
 
-    public MealChooser(FoodListStorageService foodlists, Service services, RandomNumberGenerator randomNumberGenerator) {
+    public MealChooser(FoodListStorageService foodlists, RandomizerService services, RandomNumberGenerator randomNumberGenerator) {
         this.foodlists = foodlists;
         this.services = services;
         this.randomNumberGenerator = randomNumberGenerator;
@@ -23,7 +23,7 @@ public class MealChooser {
         String breakfast = MenuType.SWEET.getMenuType();
         String lunch = MenuType.SAVOURY.getMenuType();
         switch(choiceString){
-            case("sweet"): // TODO: Instead of hardcoding the strings here, do enums or constants in interfaces
+            case("sweet"):
                 return services.getRandomMeal(foodlists.getDishesByType(MenuType.SWEET));
             case("savoury"):
                 return services.getRandomMeal(foodlists.getDishesByType(MenuType.SAVOURY));

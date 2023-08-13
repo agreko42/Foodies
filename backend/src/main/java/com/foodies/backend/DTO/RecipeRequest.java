@@ -1,11 +1,11 @@
-package com.foodies.backend.recipeLogic.dbConnection;
+package com.foodies.backend.DTO;
 
-import com.foodies.backend.recipeLogic.FlavourType;
+import com.foodies.backend.data.FlavourType;
 
 import java.util.List;
 import java.util.Set;
 
-public class RecipeDTO {
+public class RecipeRequest {
 
     private Long id;
     private String userName;
@@ -15,7 +15,7 @@ public class RecipeDTO {
     private FlavourType flavourType;
     private Set<IngredientDTO> ingredients;
 
-    public RecipeDTO(Long id, String userName, String name, List<String> steps, List<String> comments, FlavourType flavourType, Set<IngredientDTO> ingredients) {
+    public RecipeRequest(Long id, String userName, String name, List<String> steps, List<String> comments, FlavourType flavourType, Set<IngredientDTO> ingredients) {
         this.id = id;
         this.userName = userName;
         this.name = name;
@@ -25,7 +25,7 @@ public class RecipeDTO {
         this.ingredients = ingredients;
     }
 
-    public RecipeDTO() {
+    public RecipeRequest() {
     }
 
     public Long getId() {

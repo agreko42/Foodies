@@ -1,8 +1,6 @@
-package com.foodies.backend.recipeLogic.dbConnection;
+package com.foodies.backend.DTO;
 
-import com.foodies.backend.recipeLogic.UnitEnum;
-
-import java.util.Set;
+import com.foodies.backend.data.UnitEnum;
 
 public class IngredientDTO {
 

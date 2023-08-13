@@ -1,4 +1,4 @@
-package com.foodies.backend.recipeLogic;
+package com.foodies.backend.data;
 
 public enum FlavourType {
     SWEET("sweet"),

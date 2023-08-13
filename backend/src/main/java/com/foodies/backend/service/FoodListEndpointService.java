@@ -3,8 +3,6 @@ package com.foodies.backend.service;
 import com.foodies.backend.data.Dish;
 import com.foodies.backend.data.MenuType;
 import com.foodies.backend.logic.MealChooser;
-import com.foodies.backend.recipeLogic.dbConnection.RecipeRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 

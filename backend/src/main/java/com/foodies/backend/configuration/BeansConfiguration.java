@@ -5,22 +5,15 @@ import com.foodies.backend.data.Menu;
 import com.foodies.backend.data.MenuType;
 import com.foodies.backend.logic.MealChooser;
 import com.foodies.backend.logic.RandomNumberGenerator;
-import com.foodies.backend.logic.Service;
-import com.foodies.backend.recipeLogic.RecipeEndpointService;
-import com.foodies.backend.recipeLogic.dbConnection.Recipe;
-import com.foodies.backend.recipeLogic.dbConnection.RecipeRepository;
+import com.foodies.backend.logic.RandomizerService;
 import com.foodies.backend.service.FoodListEndpointService;
 import com.foodies.backend.service.FoodListStorage;
 import com.foodies.backend.service.FoodListStorageService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Configuration
 public class BeansConfiguration {
@@ -48,7 +41,7 @@ public class BeansConfiguration {
 
     @Bean
     MealChooser mealChooserLoader() {
-        return new MealChooser(foodListStorageService(), new Service(randomNumberGenerator()), randomNumberGenerator());
+        return new MealChooser(foodListStorageService(), new RandomizerService(randomNumberGenerator()), randomNumberGenerator());
     }
 
     @Bean
