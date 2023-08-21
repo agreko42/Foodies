@@ -32,6 +32,7 @@ public class TimelineEndpointService {
 
         followedUserRecipes.addAll(ownedRecipes);
 
+
         return followedUserRecipes.stream()
                 .map(dtoService::convertRecipeToRecipeResponse)
                 .sorted(Comparator.comparing(RecipeResponse::getPostedOn).reversed())
