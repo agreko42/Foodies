@@ -20,10 +20,15 @@ public class TimelineEndpoint {
 
 
     @GetMapping("")
-    public List<RecipeResponse> getTimeline (@RequestHeader String authorization){
+    public List<RecipeResponse> getFriendTimeline (@RequestHeader String authorization){
 
         return timelineEndpointService.getTimelineForUser(jwtService.extractUsername(authorization.substring(7)));
 
+    }
+
+    @GetMapping("/all")
+    public List<RecipeResponse> getWholeTimeline () {
+        return timelineEndpointService.getWholeTimeline();
     }
 
 }

@@ -40,4 +40,11 @@ public class TimelineEndpointService {
 
 
     }
+
+    public List<RecipeResponse> getWholeTimeline() {
+        return recipeRepository.getAll().stream()
+                .map(dtoService::convertRecipeToRecipeResponse)
+                .sorted(Comparator.comparing(RecipeResponse::getPostedOn).reversed())
+                .toList();
+    }
 }
