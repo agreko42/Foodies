@@ -41,9 +41,9 @@ public class UserEndpointService {
         return userDTO;
     }
 
-    public void followUser(Long userIdToFollow, String username) {
+    public void followUser(String userNameToFollow, String username) {
         User currentUser = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
-        User userToFollow = userRepository.findById(userIdToFollow).orElseThrow(() -> new RuntimeException("User not found"));
+        User userToFollow = userRepository.findByUsername(userNameToFollow).orElseThrow(() -> new RuntimeException("User not found"));
 
         if(currentUser.getUserFollowing().contains(userToFollow)) {
             throw new RuntimeException("You are already following this user");

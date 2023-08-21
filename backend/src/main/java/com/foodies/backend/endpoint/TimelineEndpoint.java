@@ -19,7 +19,7 @@ public class TimelineEndpoint {
     private final JwtService jwtService;
 
 
-    @GetMapping("")
+    @GetMapping("/")
     public List<RecipeResponse> getFriendTimeline (@RequestHeader String authorization){
 
         return timelineEndpointService.getTimelineForUser(jwtService.extractUsername(authorization.substring(7)));

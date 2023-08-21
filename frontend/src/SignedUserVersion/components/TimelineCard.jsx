@@ -1,12 +1,34 @@
+import {Button} from "flowbite-react";
+
+
 const TimelineCard = (props) => {
+
+
+
+  const followUser = async () =>{
+    const authString = `Bearer ${props.user}`;
+    await fetch(`http://localhost:8080/user/follow/${props.recipeUsername}`, {
+      method: "POST",
+      headers: {
+        Authorization: authString,
+      },
+      credentials: "include",
+    });
+
+    return;
+  }
+
+
   console.log(props);
   return (
     <div className="flex justify-center items-center mt-5">
       <div className="max-w-xs container bg-white rounded-xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
         <div>
-          <span className="text-white text-xs font-bold rounded-lg bg-green-500 inline-block mt-4 ml-4 py-1.5 px-4 cursor-pointer">
+          {props.followable ?
+          <Button className="text-white text-xs font-bold rounded-lg bg-green-500 inline-block mt-4 ml-4 py-1.5 px-4 cursor-pointer"
+          onClick={followUser}>
             add Friend
-          </span>
+          </Button> : ""}
           <h1 className="text-2xl mt-2 ml-4 font-bold text-gray-800 cursor-pointer hover:text-gray-900 transition duration-100">
             {props.recipeName}
           </h1>

@@ -31,11 +31,12 @@ public class UserEndpoint {
         return ResponseEntity.ok(followers);
     }
 
-    @PostMapping("/follow/{userIdToFollow}")
-    public ResponseEntity<Void> followUser(@PathVariable Long userIdToFollow, @RequestHeader String authorization) {
+    @PostMapping("/follow/{userNameToFollow}")
+    public ResponseEntity<Void> followUser(@PathVariable String userNameToFollow, @RequestHeader String authorization) {
         String pureToken = authorization.substring(7);
         String username = jwtService.extractUsername(pureToken);
-        userEndpointService.followUser(userIdToFollow, username);
+        System.out.println(userNameToFollow + "   " + username);
+        userEndpointService.followUser(userNameToFollow, username);
         return ResponseEntity.ok().build();
     }
 }
