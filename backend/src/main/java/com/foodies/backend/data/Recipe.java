@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +28,8 @@ public class Recipe {
     FlavourType flavourType;
     LocalDateTime timestamp;
 
+    @OneToMany(mappedBy = "recipe")
+    private List<RecipeComment> userComments = new ArrayList<>();
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "recipe_ingredients",
     joinColumns = {@JoinColumn(name = "recipe_id")},

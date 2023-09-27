@@ -54,9 +54,10 @@ public class RecipeEndpoint {
     }
 
 
+
+
     @PostMapping("/post")
     public ResponseEntity<RecipeResponse> postRecipe(@RequestBody RecipeRequest recipeRequest, @RequestHeader String authorization) {
-
         String pureToken = authorization.substring(7);
         String username = jwtService.extractUsername(pureToken);
         RecipeResponse savedRecipe = recipeService.postRecipe(recipeRequest, username);

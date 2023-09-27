@@ -35,7 +35,6 @@ public class UserEndpoint {
     public ResponseEntity<Void> followUser(@PathVariable String userNameToFollow, @RequestHeader String authorization) {
         String pureToken = authorization.substring(7);
         String username = jwtService.extractUsername(pureToken);
-        System.out.println(userNameToFollow + "   " + username);
         userEndpointService.followUser(userNameToFollow, username);
         return ResponseEntity.ok().build();
     }

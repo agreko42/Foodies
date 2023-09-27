@@ -1,10 +1,12 @@
 package com.foodies.backend.service;
 
 import com.foodies.backend.DTO.IngredientDTO;
+import com.foodies.backend.DTO.RecipeCommentDTO;
 import com.foodies.backend.DTO.RecipeRequest;
 import com.foodies.backend.DTO.RecipeResponse;
 import com.foodies.backend.data.Ingredient;
 import com.foodies.backend.data.Recipe;
+import com.foodies.backend.data.RecipeComment;
 import com.foodies.backend.security.user.User;
 import org.springframework.stereotype.Service;
 
@@ -65,5 +67,10 @@ public class DtoService {
         ingredient.setUnit(ingredientDTO.getUnit());
 
         return ingredient;
+    }
+
+    public RecipeCommentDTO convertRecipeCommentToDto(RecipeComment comment){
+        return new RecipeCommentDTO(comment.getContent(), comment.getTimestamp(), comment.getUser().getUsername());
+
     }
 }
