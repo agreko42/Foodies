@@ -4,25 +4,26 @@ import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./FreeUserVersion/components/LoginPage.jsx";
 import RegisterPage from "./FreeUserVersion/components/RegisterPage.jsx";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import ProtectedRoute from "./ProtectedRoute.jsx";
+import SignInPage from "./FreeUserVersion/components/SignInPage.jsx";
 
 const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-      const token = localStorage.getItem("token");
-      if(token){
-          setUser(token);
-      }
-  }, [] )
+    const token = localStorage.getItem("token");
+    if (token) {
+      setUser(token);
+    }
+  }, []);
 
   console.log(user);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<FreeUserVersion />} />
+        <Route path="/" element={<FreeUserVersion setUser={setUser} />} />
         <Route
           path="/logged-in"
           element={
@@ -31,10 +32,9 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/signup/login" element={<LoginPage setUser={setUser} />} />
         <Route
           path="/signup/register"
-          element={<RegisterPage setUser={setUser} />}
+          element={<SignInPage setUser={setUser} />}
         />
       </Routes>
     </BrowserRouter>

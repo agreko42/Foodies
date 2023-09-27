@@ -1,47 +1,52 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginAuth from "../../auth/LoginAuth";
-import Navbar from "../layout/Navbar";
+import RegisterAuth from "../../auth/RegisterAuth";
 import Footer from "../layout/Footer";
+import Navbar from "../layout/Navbar";
 
-const LoginPage = (props) => {
+const SignInPage = ({ setUser }) => {
   const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [userEmailError, setUserEmailError] = useState(false);
   const [userPassword, setUserPassword] = useState("");
   const [userPasswordError, setUserPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
-  // const validateString = (string) => {
-  //   return !(string == null || string.length <= 0);
-  // };
+  const validateString = (string) => {
+    return !(string == null || string.length <= 0);
+  };
 
-  // const handleTogglePasswordVisibility = () => {
-  //   setShowPassword(!showPassword);
-  // };
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    LoginAuth(
+    RegisterAuth(
       username,
+      userEmail,
       userPassword,
-      props.setUser,
       navigate,
+      setUser,
       setUsernameError,
+      setUserEmailError,
       setUserPasswordError
     );
   };
 
   return (
     <>
-      <div className="bg-white rounded-lg flex min-h-full flex-col px-6 py-12 lg:px-36">
+      <Navbar />
+      <div className="bg-white flex min-h-full flex-col mt-6 lg:mt-24 px-6 py-12 lg:px-36">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm text-center">
           <h1 className="my-4 text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Foodies
           </h1>
           <h2 className="text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Login to your account
+            Sign in to your account
           </h2>
         </div>
 
@@ -71,6 +76,31 @@ const LoginPage = (props) => {
                 <p className="text-red-500">Username is required</p>
               )}
             </div>
+            <div>
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Your email
+              </label>
+              <input
+                id="email"
+                type="text"
+                onChange={(e) => setUserEmail(e.target.value)}
+                // onBlur={() => setUserEmailError(!validateString(userEmail))}
+                className={`${
+                  !userEmailError
+                    ? "border-gray-300 ring-blue-500"
+                    : "border-red-500 ring-red-500"
+                } bg-gray-50 border rounded-lg text-gray-900 sm:text-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:ring-primary-600 focus:border-primary-600 block w-full`}
+                placeholder="Enter your email"
+                required
+              />
+              {userEmailError && (
+                <p className="text-red-500">Email is required</p>
+              )}
+            </div>
+
             <div>
               <label
                 htmlFor="password"
@@ -105,25 +135,26 @@ const LoginPage = (props) => {
                 type="submit"
                 className="flex w-full justify-center rounded-md border-2 border-gray-950 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:border-orange-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-200"
               >
-                Login
+                Sign in
               </button>
             </div>
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            You dont have an account?
+            You already have an account?
             <a
-              href="/signup/register"
+              href="/"
               className="font-semibold leading-6 text-black hover:text-stone-300"
             >
               {" "}
-              Sign In
+              Login
             </a>
           </p>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
 
-export default LoginPage;
+export default SignInPage;
