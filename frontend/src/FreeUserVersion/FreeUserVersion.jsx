@@ -1,15 +1,24 @@
 //import './App.css'
 import Navbar from "./layout/Navbar.jsx";
 import Footer from "./layout/Footer.jsx";
-import ContentSection from "./components/ContentSection.jsx";
-import { useState } from "react";
-import MenuOptions from "./components/MenuOptions.jsx";
+import LoginPage from "./components/LoginPage.jsx";
+import LandingPageSection from "./components/LandingPageSection.jsx";
 
-function FreeUserVersion() {
-  const [filterBtnForFood, setFilterBtnForFood] = useState("sweet");
-
+function FreeUserVersion({ setUser }) {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <LandingPageSection setUser={setUser} />
+      <Footer />
+    </div>
+  );
+}
+
+export default FreeUserVersion;
+
+/*; 
+const [filterBtnForFood, setFilterBtnForFood] = useState("sweet");
+ <>
       <Navbar />
       <div className="flex flex-row justify-around items-center">
         <div>
@@ -21,8 +30,7 @@ function FreeUserVersion() {
         <div>for test purposes</div>
       </div>
       <Footer />
-    </div>
-  );
-}
+    </>
+      > */
 
-export default FreeUserVersion;
+/* */
