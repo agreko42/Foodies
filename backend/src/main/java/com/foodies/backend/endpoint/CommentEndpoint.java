@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentEndpoint {
 
-    private JwtService jwtService;
+    private final JwtService jwtService;
     private final CommentEndpointService service;
 
     @GetMapping("/{id}")
@@ -34,6 +34,7 @@ public class CommentEndpoint {
     public ResponseEntity<RecipeCommentDTO> postCommentForRecipe(@PathVariable Long id, @RequestBody CommentRequest request, @RequestHeader String authorization){
         String pureToken = authorization.substring(7);
         String username = jwtService.extractUsername(pureToken);
+        System.out.println(username);
         RecipeCommentDTO savedComment = service.postComment(id, username, request);
         return ResponseEntity.ok().body(savedComment);
     }

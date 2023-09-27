@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@RequiredArgsConstructor
 @NoArgsConstructor
 public class RecipeComment {
 
@@ -26,9 +25,6 @@ public class RecipeComment {
     @JoinColumn(name= "recipe_id")
     private Recipe recipe;
     private LocalDateTime timestamp;
-
-    public RecipeComment(String content, User user, Recipe recipe, LocalDateTime timestamp) {
-    }
 
     public void setId(Long id) {
         this.id = id;

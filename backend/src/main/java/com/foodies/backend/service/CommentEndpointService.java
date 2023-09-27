@@ -36,7 +36,14 @@ public class CommentEndpointService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         Recipe recipe = recipeRepository.findById(recipeId)
                 .orElseThrow( () -> new RuntimeException("Recipe not found"));
-        RecipeComment comment = new RecipeComment(request.getContent(), user, recipe, LocalDateTime.now());
-        return dtoService.convertRecipeCommentToDto(commentRepository.save(comment));
+        RecipeComment commentToSave = new RecipeComment();
+        commentToSave.setContent(request.getContent());
+        commentToSave.setUser(user);
+        commentToSave.setRecipe(recipe);
+        commentToSave.setTimestamp(LocalDateTime.now());
+        RecipeComment comment = commentRepository.save(commentToSave);
+        System.out.println(comment.getContent());
+        System.out.println(comment.getUser().getUsername());
+        return dtoService.convertRecipeCommentToDto(comment);
     }
 }
