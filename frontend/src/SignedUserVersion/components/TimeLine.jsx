@@ -5,7 +5,7 @@ import api from "../../config/api";
 
 const fetchTimeline = async (token, choice) => {
   const authString = `Bearer ${token}`;
-  const response = await fetch(`${api.BACKEND.getUrl}${choice}`, {
+  const response = await fetch(`${api.BACKEND.getUrl}/${choice}`, {
     method: "GET",
     headers: {
       Authorization: authString,
