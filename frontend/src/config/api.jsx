@@ -1,4 +1,4 @@
-const BASE_URL = "http://backend:8080";
+const BASE_URL = "http://backend";
 
 const Endpoint = {
   BACKEND:{
