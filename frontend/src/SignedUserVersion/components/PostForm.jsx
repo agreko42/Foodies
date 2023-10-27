@@ -17,7 +17,7 @@ const postUserFood = async (postBody, token) => {
 };
 
 const getUnitsForDd = async () => {
-  const response = await fetch(`http://localhost:8080/recipe/units`, {
+  const response = await fetch(`${api.BACKEND.getUrl}/recipe/units`, {
     method: "GET",
     headers: {},
   });
