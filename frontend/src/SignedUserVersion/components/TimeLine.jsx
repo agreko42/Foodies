@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import TimelineCard from "./TimelineCard.jsx";
 import {Button} from "flowbite-react";
 import api from "../../config/api";
+import RecipeDetails from "./RecipeDetails.jsx";
 
 const fetchTimeline = async (token, choice) => {
   const authString = `Bearer ${token}`;
@@ -22,6 +23,8 @@ function TimeLine(props) {
   const [timelineData, setTimelineData] = useState([]);
 
   const [timelineChoice, setTimelineChoice] = useState("");
+
+  const [recipeChoice, setRecipeChoice] = useState()
 
   useEffect(() => {
     if (props.user !== null) {
@@ -51,10 +54,16 @@ function TimeLine(props) {
             recipeFlavourtype={recipe.flavourType}
             user={props.user}
             followable={timelineChoice === "all" ? true : false}
+            setRecipeChoice={setRecipeChoice}
+            id={recipe.id}
             key={recipe.id}
           />
-        );
-      })}
+        )})
+      }
+      <RecipeDetails
+        recipe={timelineData.find( recipe => recipe.id === recipeChoice)}
+      />
+
     </div>
   );
 }
